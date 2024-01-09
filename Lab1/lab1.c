@@ -1,5 +1,5 @@
-#include "lab1.h"
 #include <stdio.h>
+#include "lab1.h"
 
 void helloWorld()
 {
