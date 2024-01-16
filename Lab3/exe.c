@@ -38,9 +38,23 @@ void q_DivMult()
 
 void q_Char()
 {
+    char ch1 = 'G', ch2 = 'e', ch3 = '7', ch4 = '$';
 
+    printf("For the char %c we get: ", ch1);
+    changeChar(&ch1);
+    printf("%c\n", ch1);
 
+    printf("For the char %c we get: ", ch2);
+    changeChar(&ch2);
+    printf("%c\n", ch2);
 
+    printf("For the char %c we get: ", ch3);
+    changeChar(&ch3);
+    printf("%c\n", ch3);
+
+    printf("For the char %c we get: ", ch4);
+    changeChar(&ch4);
+    printf("%c\n", ch4);
 }
 
 void q_Reverse()

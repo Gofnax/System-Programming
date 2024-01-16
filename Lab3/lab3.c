@@ -12,3 +12,15 @@ int	calc(float num1, float num2, float* pMult, float* pDiv)
 
     return 1;
 }
+
+void changeChar(char* pTav)
+{
+    if(*pTav >= 'A' && *pTav <= 'Z')
+        *pTav = 'C';
+    else if(*pTav >= 'a' && *pTav <= 'z')
+        *pTav = 'S';
+    else if(*pTav >= '0' && *pTav <= '9')
+        *pTav = 'D';
+    else
+        *pTav = 'O';
+}
