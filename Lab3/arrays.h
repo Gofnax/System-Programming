@@ -2,8 +2,8 @@
 #define __ARRAYS__
 
 
-void	printArray(int arr[], int size);
-void	initArray(int arr[], int size);
+void	printArray(const int* arr, int size);
+void	initArray(int* arr, int size);
 
 //void	printMat
 //void	initMat

@@ -3,7 +3,7 @@
 
 int	calc(float num1, float num2, float* pMult, float* pDiv);
 void changeChar(char* pTav);
-//void	reverseArray
+void reverseArray(int* arr, int size);
 //int	checkPalindromeArr
 
 #endif

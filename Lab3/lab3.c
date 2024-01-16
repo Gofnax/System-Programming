@@ -24,3 +24,17 @@ void changeChar(char* pTav)
     else
         *pTav = 'O';
 }
+
+void reverseArray(int* arr, int size)
+{
+    int i = 0, j = size - 1;
+    int temp;
+    while(i <= j)
+    {
+        temp = *(arr + i);
+        *(arr + i) = *(arr + j);
+        *(arr + j) = temp;
+        i++;
+        j--;
+    }
+}

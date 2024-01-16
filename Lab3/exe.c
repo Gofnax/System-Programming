@@ -2,7 +2,10 @@
 #include <ctype.h>
 
 #include "exe.h"
+#include "arrays.h"
 #include "lab3.h"
+
+#define N 5
 
 void q_DivMult()
 {
@@ -34,6 +37,7 @@ void q_DivMult()
         printf("The divition wasn't successful.\n");
     }
 
+    printf("\n");
 }
 
 void q_Char()
@@ -59,10 +63,11 @@ void q_Char()
 
 void q_Reverse()
 {
-	
-
-
-
+    int arr[N];
+    initArray(arr, N);
+    printArray(arr, N);
+    reverseArray(arr, N);
+    printArray(arr, N);
 }
 
 void q_PrintMat()
