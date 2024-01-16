@@ -6,16 +6,16 @@
 
 void q_DivMult()
 {
-	float num1 = 5.17, num2 = 3.94, num3 = 0;
+	float num1 = 5.1, num2 = 3.9, num3 = 0;
     float mul, div;
     int res1, res2;
 
     res1 = calc(num1, num2, &mul, &div);
-    printf("%f * %f is %f\n", num1, num2, mul);
+    printf("For %.2f and %.2f:\n", num1, num2);
+    printf("%.2f * %.2f is %.2f\n", num1, num2, mul);
     if(res1)
     {
-        printf("The divition was successful.\n");
-        printf("%f / %f is %f\n", num1, num2, div);
+        printf("%.2f / %.2f is %.2f\n", num1, num2, div);
     }
     else
     {
@@ -23,11 +23,11 @@ void q_DivMult()
     }
 
     res2 = calc(num1, num3, &mul, &div);
-    printf("%f * %f is %f\n", num1, num2, mul);
+        printf("\nFor %.2f and %.2f:\n", num1, num3);
+    printf("%.2f * %.2f is %.2f\n", num1, num3, mul);
     if(res2)
     {
-        printf("The divition was successful.\n");
-        printf("%f / %f is %f\n", num1, num3, div);
+        printf("%.2f / %.2f is %.2f\n", num1, num3, div);
     }
     else
     {

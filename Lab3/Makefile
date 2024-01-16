@@ -1,16 +1,16 @@
 CC = gcc
-OBJS = arrays.o exe.o lab2.o prog.o
-EXEC = demo2
+OBJS = arrays.o exe.o lab3.o main.o
+EXEC = demo3
 DEBUG = -g
-CFLAGS = -Wall -Werror -Wextra -Wconversion $(DEBUG)
+CFLAGS = -Wall -Werror -Wextra $(DEBUG)
 
 $(EXEC) : $(OBJS)
 	$(CC) $(OBJS) -o $@
 
 arrays.o: arrays.c arrays.h
-exe.o: exe.c arrays.h lab2.h exe.h
-lab2.o: lab2.c lab2.h arrays.h
-prog.o: prog.c exe.h
+exe.o: exe.c exe.h lab3.h
+lab3.o: lab3.c lab3.h
+main.o:main.c exe.h
 
 clean:
 	rm -f $(OBJS) $(EXEC)
