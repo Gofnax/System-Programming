@@ -1,5 +1,5 @@
 CC = gcc
-OBJS = q3.o main.o q4.o
+OBJS = q3.o q4.o main.o
 EXEC = assignment1
 DEBUG = -g
 CFLAGS = -Wall -Werror -Wextra $(DEBUG)

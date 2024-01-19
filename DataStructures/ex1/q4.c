@@ -1,4 +1,3 @@
-#include <math.h>
 #include "q4.h"
 
 int decToBiRec(int num)
@@ -7,8 +6,8 @@ int decToBiRec(int num)
         return 0;
 
     int biDigit = num % 2;
-    int res = temp = decToBiRec(num / 2);
-    int counter = 0;
+    int res = decToBiRec(num / 2);
+    int temp = res, counter = 0;
 
     while(temp > 0)
     {
@@ -19,5 +18,15 @@ int decToBiRec(int num)
     if(!biDigit)
         counter++;
 
-    return res + biDigit * pow(10, counter);
+    return res + biDigit * raisePower(10, counter); //(int)pow(10, counter);
+}
+
+int raisePower(int num, int exp)
+{
+    int res = 1;
+
+    for(int i = 0; i < exp; i++)
+        res *= num;
+
+    return res;
 }

@@ -1,5 +1,5 @@
-#ifndef __EX1__
-#define __EX1__
+#ifndef __Q3_H__
+#define __Q3_H__
 
 #define N 5
 typedef char mat[N][N];
