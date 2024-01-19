@@ -18,15 +18,5 @@ int decToBiRec(int num)
     if(!biDigit)
         counter++;
 
-    return res + biDigit * raisePower(10, counter); //(int)pow(10, counter);
-}
-
-int raisePower(int num, int exp)
-{
-    int res = 1;
-
-    for(int i = 0; i < exp; i++)
-        res *= num;
-
-    return res;
+    return res * 10 + biDigit;
 }
