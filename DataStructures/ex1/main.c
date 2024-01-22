@@ -15,7 +15,7 @@ int main()
     //getchar();
 
     //check for question 4
-    int num4 = 125;
+    int num4 = 4;
     int res4 = decToBiRec(num4);
     printf("The binary rep of %d is %d\n", num4, res4);
 }
