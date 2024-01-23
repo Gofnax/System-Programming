@@ -4,10 +4,10 @@ double oddSuccessRec(double p, int n, int k)
 {
     if(k == 1)
     {
-        return calcChoose(n, 1) * power(p, 1) * power(1 - p, n - 1);
+        return calcChoose(n, 1) * pow(p, 1) * pow(1 - p, n - 1);
     }
 
-    double res = calcChoose(n, k) * power(p, k) * power(1 - p, n - k);
+    double res = calcChoose(n, k) * pow(p, k) * pow(1 - p, n - k);
     return res + oddSuccessRec(p, n, k - 2);
 }
 
@@ -24,13 +24,5 @@ double calcChoose(int n, int k)
         nkFact *= i;
     
     res = (double)(nFact / (kFact * nkFact));
-    return res;
-}
-
-double power(double base, int exp)
-{
-    double res = base;
-    for(int i = 2; i <= exp; i++)
-        res *= base;
     return res;
 }
