@@ -4,6 +4,7 @@
 #include "q4.h"
 #include "q5.h"
 #include "q6.h"
+#include "q7.h"
 
 int main()
 {
@@ -31,4 +32,11 @@ int main()
     int num6n = 3;
     double num6p = 0.3;
     printf("The prob of odd successes is %f\n", oddSuccessRec(num6p, num6n, num6n));
+
+    //check for question 7
+    int num7 = 0;
+    printf("Please enter a number:\n");
+    scanf("%d", &num7);
+    printf("Binary options:\n");
+    printBin(num7);
 }
