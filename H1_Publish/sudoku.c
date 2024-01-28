@@ -13,12 +13,13 @@ int checkSudoku()
 int getSudokuSize(int maxSize)
 {
     int size = 0;
+    int maxBoard = maxSize * maxSize;
     do
     {
-        printf("Enter Sudoku size, sqrt(size) need to be an integer less then %d\n", maxSize);
+        printf("Enter Sudoku size, sqrt(size) need to be an integer less then %d\n", maxBoard);
         scanf("%d", &size);
-    }while((sqrt((double)size) != (int)(sqrt((double)size))) && (sqrt((double)size) > 0) && (size <= maxSize));
-    return size;
+    }while((sqrt((double)size) != (int)(sqrt((double)size))) && (size > maxBoard));
+    return (int)size;
 }
 
 void initBoard(int* board, int size, int maxSize)
@@ -63,18 +64,7 @@ int checkRowValidity(const int* board, char* helper, int row, int size, int maxS
     for(int i = 0; i < size; i++)
     {
         value = *(board + row * maxSize + i);
-        if(value > 0 && value <= size)
-        {
-            if(*(helper + value - 1) == '1')
-            {
-                return 0;   //the row is not valid
-            }
-            else
-            {
-                *(helper + value - 1) = '1';
-            }
-        }
-        else
+        if(!checkValidity(helper, value))
         {
             return 0;   //the row is not valid
         }
@@ -89,18 +79,7 @@ int checkColValidity(const int* board, char* helper, int col, int size, int maxS
     for(int i = 0; i < size; i++)
     {
         value = *(board + i * maxSize + col);
-        if(value > 0 && value <= size)
-        {
-            if(*(helper + value - 1) == '1')
-            {
-                return 0;   //the column is not valid
-            }
-            else
-            {
-                *(helper + value - 1) = '1';
-            }
-        }
-        else
+        if(!checkValidity(helper, value))
         {
             return 0;   //the column is not valid
         }
@@ -111,9 +90,27 @@ int checkColValidity(const int* board, char* helper, int col, int size, int maxS
 int checkSubSquareValidity(const int* board, char* helper, int row, int col, int size, int maxSize)
 {
     memset(helper, '0', maxSize);   //initializes the helper array to have only '0'
-    int value = 0;
-    for(int i = 0; i < size; i += sqrt(size))
+    int value = 0, step = (int)(sqrt(size));
+    for(int i = 0; i < size; i += step)
     {
-        
+        for(int j = 0; j < size; j += step)
+        {
+            value = *(board + i * maxSize + j);
+            if(!checkValidity(helper, value))
+            {
+                return 0;   //the column is not valid
+            }
+        }
     }
+    return 1;
+}
+
+int checkValidity(char* helper, int value)
+{
+    if(*(helper + value - 1) == '1')
+    {
+        return 0;
+    }
+    *(helper + value - 1) = '1';
+    return 1;
 }
