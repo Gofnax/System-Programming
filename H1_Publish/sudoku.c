@@ -1,4 +1,4 @@
-#include sudoku.h
+#include "sudoku.h"
 
 int checkSudoku()
 {
@@ -6,8 +6,8 @@ int checkSudoku()
     char helper[N];      //an array to help with the validy checks
     const int maxSize = N;
     int size = getSudokuSize(maxSize);
-    initBoard(board, size, maxSize);
-    printMat(board, size, size);
+    initBoard((int*)board, size, maxSize);
+    printMat((int*)board, size, size);
 }
 
 int getSudokuSize(int maxSize)
@@ -30,7 +30,7 @@ void initBoard(int* board, int size, int maxSize)
         for(int j = 0; j < size; j++)
         {
             printf("enter element %2d %2d", i, j);
-            scanf("%d", num);
+            scanf("%d", &num);
             if(num > 0 && num <= maxSize)
             {
                 *(board + i * maxSize + j) = num;
