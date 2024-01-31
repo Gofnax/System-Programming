@@ -45,7 +45,6 @@ int main()
 			default:
 				printf("Wrong option\n");
 		}
-		printf("The value of 'option' is %c\n", option);
 		scanf("%c", &buffer);	//buffer cleaning
-	}while((option != 'e') || (option != 'E'));
+	}while((option != 'e') && (option != 'E'));
 }

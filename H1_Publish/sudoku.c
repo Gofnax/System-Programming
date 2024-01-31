@@ -3,7 +3,7 @@
 void checkSudoku()
 {
     int board[N][N];    //the MAX sized sudoku matrix
-    char helper[N];      //an array to help with the validy checks
+    char helper[N];      //an array to help with the validity checks
     const int maxSize = N;
     int size = getSudokuSize(maxSize);
     initBoard((int*)board, size, maxSize);
