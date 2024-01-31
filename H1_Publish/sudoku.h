@@ -1,7 +1,6 @@
 #ifndef __SUDOKU_H__
 #define __SUDOKU_H__
 
-#include <stdio.h>
 #include "general.h"
 
 #define N 25
