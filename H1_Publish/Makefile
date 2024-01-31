@@ -1,14 +1,15 @@
 CC = gcc
-OBJS = q3.o  main.o
-EXEC = assignment1
+OBJS = main.o general.o sudoku.o
+EXEC = prog
 DEBUG = -g
 CFLAGS = -Wall -Werror -Wextra $(DEBUG)
 
 $(EXEC) : $(OBJS)
 	$(CC) $(OBJS) -lm -o $@
 
-main.o: main.c q3.h
-q3.o: q3.c q3.h
+main.o: main.c sudoku.h general.h
+general.o: general.c general.h
+sudoku.o: sudoku.c sudoku.h general.h
 
 clean:
 	rm -f $(OBJS) $(EXEC)

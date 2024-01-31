@@ -4,8 +4,8 @@
 #include <ctype.h>
 
 #include "sudoku.h"
-#include "pictureLines.h"
-#include "pictureManipulation.h"
+//#include "pictureLines.h"
+//#include "pictureManipulation.h"
 
 
 int main()
@@ -27,20 +27,20 @@ int main()
 		
 		switch (option)
 		{	
-			case s:
-			case S:
+			case 's':
+			case 'S':
 				checkSudoku();
 				break;
-			case a:
-			case A:
-				addLines();
+			case 'a':
+			case 'A':
+				//addLines();
 				break;
-			case p:
-			case P:
-				pictureManipulation();
+			case 'p':
+			case 'P':
+				//pictureManipulation();
 				break;
-			case e:
-			case E:
+			case 'e':
+			case 'E':
 				break;
 			default:
 				printf("Wrong option\n");

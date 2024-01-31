@@ -1,24 +1,26 @@
 #include "sudoku.h"
 
-int checkSudoku()
+void checkSudoku()
 {
     int board[N][N];    //the MAX sized sudoku matrix
     char helper[N];      //an array to help with the validy checks
     const int maxSize = N;
     int size = getSudokuSize(maxSize);
     initBoard((int*)board, size, maxSize);
-    printMat((int*)board, size, size);
+    printf("\nThe board is:\n");
+    printMat((int*)board, size, size, maxSize);
+    printIsBoardValid((int*)board, helper, size, maxSize);
 }
 
 int getSudokuSize(int maxSize)
 {
     int size = 0;
-    int maxBoard = maxSize * maxSize;
+    int maxBoard = maxSize;
     do
     {
         printf("Enter Sudoku size, sqrt(size) need to be an integer less then %d\n", maxBoard);
         scanf("%d", &size);
-    }while((sqrt((double)size) != (int)(sqrt((double)size))) && (size > maxBoard));
+    }while((size > maxBoard) || (size < 1) || (sqrt((double)size) != (int)(sqrt((double)size))));
     return (int)size;
 }
 
@@ -29,11 +31,12 @@ void initBoard(int* board, int size, int maxSize)
     {
         for(int j = 0; j < size; j++)
         {
-            printf("enter element %2d %2d", i, j);
+            printf("enter element %2d %2d: ", i, j);
             scanf("%d", &num);
-            if(num > 0 && num <= maxSize)
+            if(num > 0 && num <= size)
             {
                 *(board + i * maxSize + j) = num;
+                //printf("We got: %d\n", *(board + i * maxSize + j));
             }
             else
             {
@@ -46,7 +49,7 @@ void initBoard(int* board, int size, int maxSize)
 
 int checkBoardValidity(const int* board, char* helper, int size, int maxSize)
 {
-    int res = 1;
+    int res = 1, step = (int)(sqrt(size));
     for(int i = 0; i < size && res; i++)
     {
         res = checkRowValidity(board, helper, i, size, maxSize);
@@ -55,6 +58,14 @@ int checkBoardValidity(const int* board, char* helper, int size, int maxSize)
     {
         res = checkColValidity(board, helper, i, size, maxSize);
     }
+    for(int i = 0; i < size; i += step)
+    {
+        for(int j = 0; j < size && res; j += step)
+        {
+            res = checkSubSquareValidity(board, helper, i, j, size, maxSize);
+        }
+    }
+    return res;
 }
 
 int checkRowValidity(const int* board, char* helper, int row, int size, int maxSize)
@@ -91,14 +102,14 @@ int checkSubSquareValidity(const int* board, char* helper, int row, int col, int
 {
     memset(helper, '0', maxSize);   //initializes the helper array to have only '0'
     int value = 0, step = (int)(sqrt(size));
-    for(int i = 0; i < size; i += step)
+    for(int i = row; i < row + step; i++)
     {
-        for(int j = 0; j < size; j += step)
+        for(int j = col; j < col + step; j++)          
         {
             value = *(board + i * maxSize + j);
-            if(!checkValidity(helper, value))
+            if(!checkValidity(helper, value))   //if the value already exists
             {
-                return 0;   //the column is not valid
+                return 0;
             }
         }
     }
@@ -113,4 +124,16 @@ int checkValidity(char* helper, int value)
     }
     *(helper + value - 1) = '1';
     return 1;
+}
+
+void printIsBoardValid(const int* board, char* helper, int size, int maxSize)
+{
+    if(checkBoardValidity(board, helper, size, maxSize))
+    {
+        printf("The board is valid.\n");
+    }
+    else
+    {
+        printf("The board is not valid.\n");
+    }
 }
