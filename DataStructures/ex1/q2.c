@@ -1,5 +1,8 @@
 #include "q2.h"
 
+//vec holds the array of number we calculate the average for
+//size is used to know when we got to the end of vec
+//currentIndex is used to know the current index we check in vec
 double Tr2(double* vec, int size, int currentIndex)
 {
     if (currentIndex == size)

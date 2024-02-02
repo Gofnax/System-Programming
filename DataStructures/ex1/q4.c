@@ -1,5 +1,6 @@
 #include "q4.h"
 
+//num holds the number needed to convert
 int decToBiRec(int num)
 {
     if(num == 0)
