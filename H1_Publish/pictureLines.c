@@ -112,24 +112,24 @@ int checkLineValid(int* mat, int rows, int cols, int maxCols,  int x1, int y1, i
         return 0;
     if(!checkAdjacentCols(mat, cols, maxCols, x1, y1, x2, y2))
         return 0;
-    if(x1 == x2)    //if vertical line
+    if(x1 == x2)    //if vertical line |
     {
-        if(y1 != 0 && x1 != 0 && *(mat + (y1 - 1) * maxCols) + (x1 - 1) == 1)   //checks point left and above
+        if(y1 != 0 && x1 != 0 && *(mat + (y1 - 1) * maxCols + (x1 - 1)) == 1)   //checks point left and above
             return 0;
-        if(y1 != 0 && x1 != cols - 1 && *(mat + (y1 - 1) * maxCols) + (x1 + 1) == 1)    //checks point right and above
+        if(y1 != 0 && x1 != cols - 1 && *(mat + (y1 - 1) * maxCols + (x1 + 1)) == 1)    //checks point right and above
             return 0;
         if(y2 != rows - 1 && x2 != 0 && *(mat + (y2 + 1) * maxCols + (x2 - 1)) == 1)    //checks point left and below
             return 0;
         if(y2 != rows - 1 && x2 != cols - 1 && *(mat + (y2 + 1) * maxCols + (x2 + 1)) == 1)    //checks point right and below
             return 0;
     }
-    else if(y1 == y2)   //if horizontal line
+    else if(y1 == y2)   //if horizontal line ---
     {
-        if(y1 != 0 && x1 != 0 && *(mat + (y1 - 1) * maxCols) + (x1 - 1) == 1)   //checks point left and above
+        if(y1 != 0 && x1 != 0 && *(mat + (y1 - 1) * maxCols + (x1 - 1)) == 1)   //checks point left and above
             return 0;
-        if(y1 != 0 && x1 != cols -1 && *(mat + (y1 - 1) * maxCols) + (x1 + 1) == 1) //checks point right and above
+        if(y2 != 0 && x2 != cols - 1 && *(mat + (y2 - 1) * maxCols + (x2 + 1)) == 1)    //checks point right and above
             return 0;
-        if(y2 != rows - 1 && x1 != 0 && *(mat + (y2 + 1) * maxCols + (x2 - 1)) == 1)    //checks point left and below
+        if(y1 != rows - 1 && x1 != 0 && *(mat + (y1 + 1) * maxCols + (x1 - 1)) == 1)    //checks point left and below
             return 0;
         if(y2 != rows - 1 && x2 != cols - 1 && *(mat + (y2 + 1) * maxCols + (x2 + 1)) == 1)    //checks point right and below
             return 0;
@@ -143,7 +143,7 @@ int checkAdjacentRows(int* mat, int rows, int maxCols, int x1, int y1, int x2, i
     {
         if(y1 != 0 && *(mat + (y1 - 1) * maxCols + i) == 1) //checks the row above the line
             return 0;
-        if(y1 != rows - 1 && *(mat + (y2 + 1) * maxCols + x1 + i) == 1)  //checks the row below the line
+        if(y2 != rows - 1 && *(mat + (y2 + 1) * maxCols + i) == 1)  //checks the row below the line
             return 0;
     }
     return 1;
@@ -155,7 +155,7 @@ int checkAdjacentCols(int* mat, int cols, int maxCols, int x1, int y1, int x2, i
     {
         if(x1 != 0 && *(mat + (y1 + i) * maxCols + x1 - 1) == 1)    //checks the column to the left of the line
             return 0;
-        if(x1 != cols - 1 && *(mat + (y1 + i) * maxCols + x2 + 1) == 1) //check the column to the right of the line
+        if(x2 != cols - 1 && *(mat + (y1 + i) * maxCols + x2 + 1) == 1) //check the column to the right of the line
             return 0;
     }
     return 1;
