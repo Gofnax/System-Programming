@@ -28,7 +28,7 @@ int main()
 		{	
 			case 's':
 			case 'S':
-				checkSudoku();
+				sudokuGame();
 				break;
 			case 'a':
 			case 'A':
