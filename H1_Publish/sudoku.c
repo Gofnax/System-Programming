@@ -7,7 +7,7 @@ void sudokuGame()
     const int maxSize = N;
     int size = getSudokuSize(maxSize);
     initBoard((int*)board, size, maxSize);
-    printf("\nThe board is:\n");
+    //printf("\n\n");
     printMat((int*)board, size, size, maxSize);
     printIsBoardValid((int*)board, helper, size, maxSize);
 }
@@ -31,18 +31,17 @@ void initBoard(int* board, int size, int maxSize)
     {
         for(int j = 0; j < size; j++)
         {
-            printf("enter element %2d %2d: ", i, j);
+            printf("enter element %d  %d :	", i, j);
             scanf("%d", &num);
-            if(num > 0 && num <= size)
-            {
+            /*if(num > 0 && num <= size)
+            {*/
                 *(board + i * maxSize + j) = num;
-                //printf("We got: %d\n", *(board + i * maxSize + j));
-            }
+            /*}
             else
             {
                 printf("Invalid value\n");
                 j--;
-            }
+            }*/
         }
     }
 }
@@ -75,7 +74,7 @@ int checkRowValidity(const int* board, char* helper, int row, int size, int maxS
     for(int i = 0; i < size; i++)
     {
         value = *(board + row * maxSize + i);
-        if(!checkValidity(helper, value))
+        if(!checkValidity(helper, value, size))
         {
             return 0;   //the row is not valid
         }
@@ -90,7 +89,7 @@ int checkColValidity(const int* board, char* helper, int col, int size, int maxS
     for(int i = 0; i < size; i++)
     {
         value = *(board + i * maxSize + col);
-        if(!checkValidity(helper, value))
+        if(!checkValidity(helper, value, size))
         {
             return 0;   //the column is not valid
         }
@@ -107,7 +106,7 @@ int checkSubSquareValidity(const int* board, char* helper, int row, int col, int
         for(int j = col; j < col + step; j++)          
         {
             value = *(board + i * maxSize + j);
-            if(!checkValidity(helper, value))   //if the value already exists
+            if(!checkValidity(helper, value, size))   //if the value already exists
             {
                 return 0;
             }
@@ -116,9 +115,9 @@ int checkSubSquareValidity(const int* board, char* helper, int row, int col, int
     return 1;
 }
 
-int checkValidity(char* helper, int value)
+int checkValidity(char* helper, int value, int size)
 {
-    if(*(helper + value - 1) == '1')
+    if(value > size || value < 1 || *(helper + value - 1) == '1')
     {
         return 0;
     }
@@ -130,10 +129,10 @@ void printIsBoardValid(const int* board, char* helper, int size, int maxSize)
 {
     if(checkBoardValidity(board, helper, size, maxSize))
     {
-        printf("The board is valid.\n");
+        printf("A valid Sudoku\n");
     }
     else
     {
-        printf("The board is not valid.\n");
+        printf("Not a valid Sudoku\n");
     }
 }

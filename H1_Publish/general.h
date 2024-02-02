@@ -5,6 +5,6 @@
 #include <stdio.h>
 #include <string.h>
 
-void printMat(const int* mat,int rows, int cols, int maxSize);
+void printMat(const int* mat,int rows, int cols, int maxRows);
 
 #endif
