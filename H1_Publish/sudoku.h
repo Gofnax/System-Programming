@@ -5,7 +5,7 @@
 
 #define N 25
 
-void checkSudoku();
+void sudokuGame();
 int getSudokuSize(int maxSize);
 void initBoard(int* board, int size, const int maxSize);
 int checkBoardValidity(const int* board, char* helper, int size, int maxSize);

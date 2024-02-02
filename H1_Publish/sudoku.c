@@ -1,6 +1,6 @@
 #include "sudoku.h"
 
-void checkSudoku()
+void sudokuGame()
 {
     int board[N][N];    //the MAX sized sudoku matrix
     char helper[N];      //an array to help with the validity checks

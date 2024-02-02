@@ -72,13 +72,6 @@ void repeatLegalInput(int rows, int cols, int* pX1, int* pY1, int* pX2, int* pY2
     } while (!isLegalLine);
 }
 
-void inputCoodrdination(int* num)
-{
-    int buff;
-    scanf("%d", num);
-    scanf("%d", &buff);
-}
-
 int getLine(int rows, int cols, int* pX1, int* pY1, int* pX2, int* pY2)
 {
     printf("Insert line parameters x1, y1, x2, y2\n");
