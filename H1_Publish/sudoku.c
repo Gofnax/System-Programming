@@ -7,7 +7,6 @@ void sudokuGame()
     const int maxSize = N;
     int size = getSudokuSize(maxSize);
     initBoard((int*)board, size, maxSize);
-    //printf("\n\n");
     printMat((int*)board, size, size, maxSize);
     printIsBoardValid((int*)board, helper, size, maxSize);
 }
@@ -33,15 +32,7 @@ void initBoard(int* board, int size, int maxSize)
         {
             printf("enter element %d  %d :	", i, j);
             scanf("%d", &num);
-            /*if(num > 0 && num <= size)
-            {*/
-                *(board + i * maxSize + j) = num;
-            /*}
-            else
-            {
-                printf("Invalid value\n");
-                j--;
-            }*/
+            *(board + i * maxSize + j) = num;
         }
     }
 }

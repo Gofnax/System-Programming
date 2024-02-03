@@ -44,7 +44,6 @@ int linesInput(int* mat, int rows, int cols, int maxCols)
         isLegalLine = getLine(rows, cols, &x1, &y1, &x2, &y2);
         if(!isLegalLine)
         {
-            //repeatLegalInput(rows, cols, &x1, &y1, &x2, &y2);
             printf("Line paramaters illigal\n");
         }
         else
@@ -64,16 +63,6 @@ int linesInput(int* mat, int rows, int cols, int maxCols)
         scanf("%d", &option);
     }
     return numOfLines;
-}
-
-void repeatLegalInput(int rows, int cols, int* pX1, int* pY1, int* pX2, int* pY2)
-{
-    int isLegalLine;
-    do
-    {
-        printf("Line paramaters illigal\n");
-        isLegalLine = getLine(rows, cols, pX1, pY1, pX2, pY2);
-    } while (!isLegalLine);
 }
 
 int getLine(int rows, int cols, int* pX1, int* pY1, int* pX2, int* pY2)
@@ -106,10 +95,6 @@ int getLine(int rows, int cols, int* pX1, int* pY1, int* pX2, int* pY2)
 
 int checkLineValid(int* mat, int rows, int cols, int maxCols,  int x1, int y1, int x2, int y2)
 {
-    //if(y1 > y2 || x1 > x2)  //if point 2 is above or to the left of point 1
-    //    return 0;
-    //if((y1 != y2 && x1 != x2))    //if the line isn't horizontal or vertical
-    //    return 0;
     if(!checkAdjacentRows(mat, rows, maxCols, x1, y1, x2, y2))
         return 0;
     if(!checkAdjacentCols(mat, cols, maxCols, x1, y1, x2, y2))
