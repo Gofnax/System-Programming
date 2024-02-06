@@ -21,6 +21,8 @@ void bin(int* word, int n, int index)
     return;
 }
 
+//word holds the word needed to be printed
+//size indicates the length of word
 void printWord(int* word, int size)
 {
     for(int i = 0; i < size; i++)

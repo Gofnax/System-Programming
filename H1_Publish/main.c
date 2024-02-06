@@ -5,13 +5,12 @@
 
 #include "sudoku.h"
 #include "pictureLines.h"
-//#include "pictureManipulation.h"
+#include "pictureManipulation.h"
 
 
 int main()
 {
 	char option = 0, buffer = 0;
-	srand((unsigned)12345); //just for testing
 
 	do
 	{
@@ -28,7 +27,7 @@ int main()
 		{	
 			case 's':
 			case 'S':
-				checkSudoku();
+				sudokuGame();
 				break;
 			case 'a':
 			case 'A':
@@ -36,7 +35,7 @@ int main()
 				break;
 			case 'p':
 			case 'P':
-				//pictureManipulation();
+				pictureManipulation();
 				break;
 			case 'e':
 			case 'E':

@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "q2.h"
 #include "q3.h"
 #include "q4.h"
 #include "q5.h"
@@ -8,6 +9,12 @@
 
 int main()
 {
+    //check for question 2
+    double vec[] = {1.0, 2.0, 3.0, 4.0, 5.7, 6.9};
+    int num2 = sizeof(vec) / sizeof(double);
+    double num2_2 = Tr2(vec, num2, 0);
+    printf("The avg of vec is: %f\n", num2_2);
+
     //check for question 3
     char A[N][N] = {{'f', 'd', 'a', 'a', 'b'},
                     {'f', 'u', 'a', 'b', 'a'},

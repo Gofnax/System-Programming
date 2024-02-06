@@ -10,8 +10,6 @@ void addLines();
 void printMatDimensions(int rows, int cols);
 void getEffectiveMatDimensions(int* rows, int* cols, int maxRows, int maxCols);
 int linesInput(int* mat, int rows, int cols, int maxCols);
-void repeatLegalInput(int rows, int cols, int* pX1, int* pY1, int* pX2, int* pY2);
-void inputCoodrdination(int* num);
 int getLine(int rows, int cols, int* pX1, int* pY1, int* pX2, int* pY2);
 int checkLineValid(int* mat, int rows, int cols, int maxCols,  int x1, int y1, int x2, int y2);
 int checkAdjacentRows(int* mat, int rows, int maxCols, int x1, int y1, int x2, int y2);
