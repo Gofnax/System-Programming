@@ -2,5 +2,5 @@
 
 //getEvenNumbers_TwoPass
 //getEvenNumbers_OnePass
-//createCombineStrings
+char* createCombineStrings();
 

@@ -47,37 +47,39 @@ int	Q2()
 {
 	char* longStr = NULL;
 
-	//call createCombineStrings
+	longStr = createCombineStrings();
+	if(!longStr)
+		return 0;
 
-	//Add what is needed to show string and free
-
+	puts(longStr);
+	free(longStr);
 	return 1;
 }
 
 
 int	Q3()
 {
-	//Family f1;
-	//if (!initFamily(&f1))
-	//	printf("Error\n");
-	//else {
-	//	printFamily(&f1);
-	//	addPersonToFamily(&f1);
-	//	printf("After add person\n");
-	//	printFamily(&f1);
-	//	freeFamily(&f1);
-	//}
+	Family f1;
+	if (!initFamily(&f1))
+		printf("Error\n");
+	else {
+		printFamily(&f1);
+		addPersonToFamily(&f1);
+		printf("After add person\n");
+		printFamily(&f1);
+		freeFamily(&f1);
+	}
 
-	//Building b;
-	//initBuilding(&b);
-	//for (int i = 0; i < b.maxFamilies; i++)
-	//{
-	//	addFamily(&b);
-	//	addPersonToFamily(b.allFamilies[i]);
-	//}
-	//printf("Building is!!!\n");
-	//printBuilding(&b);
-	//freeBuilding(&b);
+	Building b;
+	initBuilding(&b);
+	for (int i = 0; i < b.maxFamilies; i++)
+	{
+		addFamily(&b);
+		addPersonToFamily(b.allFamilies[i]);
+	}
+	printf("Building is!!!\n");
+	printBuilding(&b);
+	freeBuilding(&b);
 	return 1;
 
 
