@@ -3,8 +3,6 @@
 #include <stdlib.h>
 
 #include "family.h"
-#include "person.h"
-#include "generalStrings.h"
 
 
 int initFamily(Family* theFamily)

@@ -1,6 +1,9 @@
 #ifndef __FAMILY_H
 #define __FAMILY_H
 
+#include "person.h"
+#include "generalStrings.h"
+
 typedef struct 
 {
 	char* lastName;
@@ -15,4 +18,4 @@ void freeFamily(Family* theFamily);
 
 
 
-#endif __FAMILY_H
+#endif
