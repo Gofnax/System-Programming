@@ -51,7 +51,7 @@ int Q2()
 	Person* maxP = (Person*)getGeneralMax(arrPer, PER_COUNT, sizeof(Person), comparePersonByNameLength);
 	printf("Longest name\t");
 	printPerson(maxP);
-	
+
 	printf("----------------------------\n");
 	Employee* arrEmp[EMP_COUNT];
 	if (!initEmployeeArr(arrEmp, EMP_COUNT))
@@ -61,7 +61,7 @@ int Q2()
 	printf("\n\n");
 
 	//find the employee with heighest salary using generalGetMax and print him
-
+	Employee** pEmpMax = (Employee**)getGeneralMax(arrEmp, EMP_COUNT, sizeof(Employee*), compareEmployeeBySalary);
 
 
 	return 1;

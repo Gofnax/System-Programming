@@ -46,4 +46,6 @@ int compareEmployeeBySalary(const void* v1, const void* v2)
 {
 	const Employee* e1 = *(const Employee**)v1;
 	const Employee* e2 = *(const Employee**)v2;
+
+	return e1->salary - e2->salary;
 }
