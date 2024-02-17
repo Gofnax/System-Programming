@@ -60,7 +60,7 @@ int doesPlaneExist(Plane* pPlane, Plane* planeArr, size_t planeCount)
     {
         return 0;
     }
-    for(size_t i; i < planeCount; i++)
+    for(size_t i = 0; i < planeCount; i++)
     {
         if(planeArr + i == pPlane)
         {
