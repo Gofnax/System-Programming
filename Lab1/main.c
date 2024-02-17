@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include "lab1.h"
 
-int main()
+int main(void)
 {
-    int basis;
+    int basis = 1;
 
     helloWorld();
     
     printf("Please enter a number:\n");
-    scanf("%d", &basis);
+    int ret = scanf("%d", &basis);
     printTriangle(basis);
+    return ret;
 }
