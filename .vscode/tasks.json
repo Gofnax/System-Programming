@@ -9,7 +9,10 @@
             "type": "shell",
             "command": "make",
 
-            // Niggerlicious control of debug and run
+            // Danilicious control of debug and run
+            "problemMatcher": [
+                "$gcc"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true

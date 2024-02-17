@@ -8,7 +8,7 @@
             "request": "launch",
 
             // The path to the executable you wish to debug
-            "program": "${workspaceFolder}/demo",
+            "program": "${workspaceFolder}/bin/prog",
 
             // Arguments to be passed to the executable
             "args": [],
@@ -17,7 +17,7 @@
             // Working directory path
             "cwd": "${workspaceFolder}",
 
-            // Voodoo nigger magic. Dont touch!
+            // Voodoo magic. Dont touch!
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -28,11 +28,6 @@
                     "ignoreFailures": true
                 }
             ],
-            "sourceFileMap": {
-                "${workspaceFolder}":{
-                    "editorPath": "${workspaceFolder}"
-                }
-            },
 
             // The label name in tasks.json
             "preLaunchTask": "MakeAndDebug"
