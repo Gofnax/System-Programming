@@ -2,14 +2,25 @@
 
 void initPlane(Plane* pPlane, Plane* planeArr, int planeCount)
 {
+    int type, serialNum;
+    int serialNumExists = 0, isSerialNumValid;
+    printf("Enter a plane type: (0 - Commercial, 1 - Cargo, 2 - Military)\n");
+    (void)scanf("%d", &type);
+    printf("Enter a serial number for the plane:\n");
+    (void)scanf("%d", &serialNum);
 
+    while(!serialNumExists || checkSerialNumValidity(pPlane))
+    {
+        
+    }
 }
 
-//  returns -1 if serial number is too small
-//  returns 0 if serial number is valid
-//  returns 1 if serial number is too big
 int checkSerialNumValidity(Plane* pPlane)
 {
+    if(pPlane == NULL)
+    {
+        return 0;
+    }
     if(pPlane->serialNumber > SERIAL_MAX)
     {
         return 1;
