@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            // Basic settings
+            "name": "Make & debug",
+            "type": "cppdbg",
+            "request": "launch",
+
+            // The path to the executable you wish to debug
+            "program": "${workspaceFolder}/demo",
+
+            // Arguments to be passed to the executable
+            "args": [],
+            "stopAtEntry": false,
+
+            // Working directory path
+            "cwd": "${workspaceFolder}",
+
+            // Voodoo nigger magic. Dont touch!
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "sourceFileMap": {
+                "${workspaceFolder}":{
+                    "editorPath": "${workspaceFolder}"
+                }
+            },
+
+            // The label name in tasks.json
+            "preLaunchTask": "MakeAndDebug"
+        }
+    ]
+}

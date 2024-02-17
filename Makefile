@@ -1,11 +1,11 @@
 CC = gcc
 OBJS = lab1.o main.o
 EXEC = demo
-DEBUG = -ggdb
+DEBUG = -g
 CFLAGS = -Wall -Werror -Wextra -Wconversion
 
 $(EXEC) : $(OBJS)
-	$(CC) $(DEBUG) $(CFLAGS) $(OBJS) -o $@
+	$(CC) $(OBJS) -o $@
 
 lab1.o: lab1.c lab1.h
 main.o: main.c lab1.h
