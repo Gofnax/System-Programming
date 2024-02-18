@@ -22,8 +22,8 @@ int addFlight(Flight* pFlight, Airline* pAirline, size_t numOfAirports);  //retu
 int addPlane(Plane* pPlane, Airline* pAirline);   //return 1 if the plane added successfully, 0 otherwise
 void doPrintFlightsWithPlaneType(void);
 int doesFlightExist(Flight* pFlight, Flight** flightArr, size_t flightCount);   //return 1 if flight exists, 0 otherwise
-int doesPlaneExist(Plane* pPlane, Plane* planeArr, size_t planeCount);  //returns 1 if plane exists, 0 otherwise
 Airline* initAirline(Airline* pAirline);
-void freeAirline(Airline* al);
+void printAirline(Airline* pAirline);
+void freeAirline(Airline* pAirline);
 
 #endif
