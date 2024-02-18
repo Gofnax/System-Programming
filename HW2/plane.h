@@ -2,6 +2,7 @@
 #define __PLANE_H__
 
 #include <stdio.h>
+#include "airline.h"
 
 #define SERIAL_MAX 9999
 #define SERIAL_MIN 1
@@ -21,5 +22,8 @@ void initPlane(Plane* pPlane, Plane* planeArr, int planeCount);
 //  returns 1 if serial number is too big
 int checkSerialNumValidity(Plane* pPlane);
 int isPlaneValid(Plane* pPlane);
+void printPlane(Plane* pPlane);
+int doesPlaneExist(Plane* pPlane, Plane* planeArr, size_t planeCount);
+void freePlane(Plane* pPlane);
 
 #endif

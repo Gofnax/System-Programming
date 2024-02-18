@@ -2,15 +2,20 @@
 
 #define MAX_STR 255
 
-Airline initAirline(void)
+Airline* initAirline(void)
 {
     char nameInput[MAX_STR];
     printf("Enter the airline's name:\n");
     gets(nameInput);
     size_t nameLen = strlen(nameInput) + 1;
     char* name = (char*)realloc(name, nameLen);
-    Airline al = {al.name = name, al.flightCount = 0, al.flightArr = NULL, al.planeCount = 0, al.planeArr = NULL };
-    return al;
+    Airline* pAirline = (Airline*)malloc(sizeof(Airline));
+    pAirline->name = name;
+    pAirline->flightCount = 0;
+    pAirline->flightArr = NULL;
+    pAirline->planeCount = 0;
+    pAirline->planeArr = NULL;
+    return pAirline;
 }
 
 int addFlight(Flight* pFlight, Airline* pAirline, size_t numOfAirports)
@@ -68,18 +73,39 @@ int doesFlightExist(Flight* pFlight, Flight** flightArr, size_t flightCount)
     return 0;
 }
 
-int doesPlaneExist(Plane* pPlane, Plane* planeArr, size_t planeCount)
+void printAirline(Airline* pAirline)
 {
-    if(planeArr == NULL)
+    if(pAirline != NULL)
     {
-        return 0;
-    }
-    for(size_t i = 0; i < planeCount; i++)
-    {
-        if(planeArr + i == pPlane)
+        printf("Airline %s, has %d planes:\n", pAirline->name, pAirline->planeCount);
+        for(size_t i = 0; i < pAirline->planeCount; i++)
         {
-            return 1;
+            printPlane(pAirline->planeArr + i);
+        }
+        printf("Has %d flights:\n", pAirline->flightCount);
+        for(size_t i = 0; i < pAirline->flightCount; i++)
+        {
+            printFlight(pAirline->flightArr[i]);
         }
     }
-    return 0;
+    else
+    {
+        printf("Invalid airline pointer.\n");
+    }
+}
+
+void freeAirline(Airline* pAirline)
+{
+    if(pAirline != NULL)
+    {
+        for(size_t i = 0; i < pAirline->flightCount; i++)
+        {
+            //freeFlight(pAirline->flightArr[i]);
+        }
+        for(size_t i = 0; i < pAirline->planeCount; i++)
+        {
+            //freePlane(pAirline->planeArr + i);
+        }
+        free(pAirline);
+    }
 }

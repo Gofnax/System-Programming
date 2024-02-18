@@ -1,5 +1,6 @@
 #include "airport.h"
 
+
 int isSameAirport(Airport* pAirport1, Airport* pAirport2)
 {
     if(strcmp(pAirport1->code, pAirport2->code))
