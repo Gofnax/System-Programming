@@ -20,6 +20,6 @@ void initPlane(Plane* pPlane, Plane* planeArr, int planeCount);
 //  returns 0 if serial number is valid
 //  returns 1 if serial number is too big
 int checkSerialNumValidity(Plane* pPlane);
-int isPlaneInitialized(Plane* pPlane);
+int isPlaneValid(Plane* pPlane);
 
 #endif

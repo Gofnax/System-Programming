@@ -2,18 +2,18 @@
 
 int addFlight(Flight* pFlight, Airline* pAirline, size_t numOfAirports)
 {
-    if(pAirline != NULL && pFlight != NULL)
-    {
-        if(numOfAirports < 2 || isPlaneInitialized(&(pFlight->thePlane)) == NULL || 
-            doesFlightExist(pFlight, pAirline->flightArr, pAirline->flightCount))
-        {
-            return 0;
-        }
-        pAirline->flightArr[pAirline->flightCount - 1] = pFlight;
-        pAirline->flightCount++;
-        return 1;
-    }
-    return 0;
+    // if(pAirline != NULL && pFlight != NULL)
+    // {
+    //     if(numOfAirports < 2 || isPlaneInitialized(&(pFlight->thePlane)) == NULL || 
+    //         doesFlightExist(pFlight, pAirline->flightArr, pAirline->flightCount))
+    //     {
+    //         return 0;
+    //     }
+    //     pAirline->flightArr[pAirline->flightCount - 1] = pFlight;
+    //     pAirline->flightCount++;
+    //     return 1;
+    // }
+    // return 0;
 }
 
 int addPlane(Plane* pPlane, Airline* pAirline)
