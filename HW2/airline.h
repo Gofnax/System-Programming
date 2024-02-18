@@ -2,6 +2,8 @@
 #define __AIRLINE_H__
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "plane.h"
 #include "flight.h"
 
@@ -19,5 +21,6 @@ int addPlane(Plane* pPlane, Airline* pAirline);   //return 1 if the plane added 
 void doPrintFlightsWithPlaneType(void);
 int doesFlightExist(Flight* pFlight, Flight** flightArr, size_t flightCount);   //return 1 if flight exists, 0 otherwise
 int doesPlaneExist(Plane* pPlane, Plane* planeArr, size_t planeCount);  //returns 1 if plane exists, 0 otherwise
+Airline* initAirline(void);
 
 #endif
