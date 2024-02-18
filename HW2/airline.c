@@ -2,14 +2,15 @@
 
 #define MAX_STR 255
 
-Airline* initAirline(void)
+Airline initAirline(void)
 {
-    char name[MAX_STR];
+    char nameInput[MAX_STR];
     printf("Enter the airline's name:\n");
-    gets(name);
-    size_t nameLen = strlen(name) + 1;
-    name = (char*)realloc(name, nameLen);
-    
+    gets(nameInput);
+    size_t nameLen = strlen(nameInput) + 1;
+    char* name = (char*)realloc(name, nameLen);
+    Airline al = {al.name = name, al.flightCount = 0, al.flightArr = NULL, al.planeCount = 0, al.planeArr = NULL };
+    return al;
 }
 
 int addFlight(Flight* pFlight, Airline* pAirline, size_t numOfAirports)
