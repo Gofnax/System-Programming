@@ -44,7 +44,7 @@ char* getAirportName(char* name)
     }
     else
     {
-
+        name = makeOneSpace(name);
     }
 }
 
@@ -83,9 +83,9 @@ char* makeTwoSpaces(char* str)
             i++;
             j++;
         }
-        for(; i < i + 2; i++)
+        for(size_t k = 0; k < 2; k++)
         {
-            newStr[i] = ' ';
+            newStr[i++] = ' ';
         }
         while(isspace(str[j]))
         {
