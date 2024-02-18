@@ -1,7 +1,5 @@
 #include "plane.h"
 
-
-
 void initPlane(Plane* pPlane, Plane* planeArr, int planeCount)
 {
     int type, serialNum;
