@@ -14,7 +14,7 @@ typedef struct
     size_t planeCount;
 }Airline;
 
-int addFlight(Flight* pFlight, Airline* pAirline);  //returns 1 if the flight added successfully, 0 otherwise
+int addFlight(Flight* pFlight, Airline* pAirline, size_t numOfAirports);  //returns 1 if the flight added successfully, 0 otherwise
 int addPlane(Plane* pPlane, Airline* pAirline);   //return 1 if the plane added successfully, 0 otherwise
 void doPrintFlightsWithPlaneType(void);
 int doesFlightExist(Flight* pFlight, Flight** flightArr, size_t flightCount);   //return 1 if flight exists, 0 otherwise

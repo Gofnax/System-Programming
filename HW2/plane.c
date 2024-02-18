@@ -31,3 +31,12 @@ int checkSerialNumValidity(Plane* pPlane)
     }
     return 0;
 }
+
+int isPlaneInitialized(Plane* pPlane)
+{
+    if(pPlane->type < 0 || pPlane->type > NumOfTypes || pPlane->serialNumber < 1 || pPlane > 9999)
+    {
+        return 0;
+    }
+    return 1;
+}

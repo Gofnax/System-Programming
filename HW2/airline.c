@@ -1,33 +1,34 @@
 #include "airline.h"
 
-int addFlight(Flight* pFlight, Airline* pAirline)
+int addFlight(Flight* pFlight, Airline* pAirline, size_t numOfAirports)
 {
-    if(pAirline == NULL)
+    if(pAirline != NULL && pFlight != NULL)
     {
-        return 0;
+        if(numOfAirports < 2 || isPlaneInitialized(&(pFlight->thePlane)) == NULL || 
+            doesFlightExist(pFlight, pAirline->flightArr, pAirline->flightCount))
+        {
+            return 0;
+        }
+        pAirline->flightArr[pAirline->flightCount - 1] = pFlight;
+        pAirline->flightCount++;
+        return 1;
     }
-    if(doesFlightExist(pFlight, pAirline->flightArr, pAirline->flightCount))
-    {
-        return 0;
-    }
-    pAirline->flightArr[pAirline->flightCount - 1] = pFlight;
-    pAirline->flightCount++;
-    return 1;
+    return 0;
 }
 
 int addPlane(Plane* pPlane, Airline* pAirline)
 {
-    if(pAirline == NULL)
+    if(pAirline != NULL)
     {
-        return 0;
+        if(doesPlaneExist(pPlane, pAirline->planeArr, pAirline->planeCount))
+        {
+            return 0;
+        }
+        pAirline->planeArr[pAirline->planeCount] = *pPlane;
+        pAirline->flightCount++;
+        return 1;
     }
-    if(doesPlaneExist(pPlane, pAirline->planeArr, pAirline->planeCount))
-    {
-        return 0;
-    }
-    pAirline->planeArr[pAirline->planeCount] = *pPlane;
-    pAirline->flightCount++;
-    return 1;
+    return 0;
 }
 
 void doPrintFlightsWithPlaneType(void)
