@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "generalStrings.h"
+
 #define IATA_LEN 3
 
 typedef struct

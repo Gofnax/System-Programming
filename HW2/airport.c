@@ -27,10 +27,10 @@ Airport* initAirport(Airport* pAirport)
 
 char* getAirportName(char* name)
 {
-    char nameInput[MAX_STR];
-    printf("Enter the airport's name:\n");
-    gets(nameInput);
-    name = (char*)realloc(name, strlen(nameInput) + 1);
+    // char nameInput[MAX_STR];
+    // printf("Enter the airport's name:\n");
+    // gets(nameInput);
+    name = getStrExactLength("Enter the airport's name:\n");//(char*)realloc(name, strlen(nameInput) + 1);
     cleanWhiteSpaces(name);
     capitalizeFirstLetters(name);
     size_t wordCount = getNumOfWords(name);
@@ -68,6 +68,7 @@ char* makeOneSpace(char* str)
     }
     i--;
     newStr[i] = '\0';
+    //needs malloc to return string
     return strcpy(str, newStr);
 }
 
@@ -94,6 +95,7 @@ char* makeTwoSpaces(char* str)
     }
     i -= 2;
     newStr[i] = '\0';
+    //needs malloc to return string
     return strcpy(str, newStr);
 }
 
@@ -108,6 +110,7 @@ char* capitalizeAllLetters(char* str)
             newStr[j + 1] = '_';
         }
     }
+    //needs malloc to return string
     return strcpy(str, newStr);
 }
 
