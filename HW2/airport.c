@@ -25,12 +25,12 @@ Airport* initAirport(Airport* pAirport)
 
 }
 
-char* getAirportName(char* name)
+char* getAirportName()
 {
     // char nameInput[MAX_STR];
     // printf("Enter the airport's name:\n");
     // gets(nameInput);
-    name = getStrExactLength("Enter the airport's name:\n");//(char*)realloc(name, strlen(nameInput) + 1);
+    char* name = getStrExactLength("Enter the airport's name:\n");//(char*)realloc(name, strlen(nameInput) + 1);
     cleanWhiteSpaces(name);
     capitalizeFirstLetters(name);
     size_t wordCount = getNumOfWords(name);
@@ -46,6 +46,7 @@ char* getAirportName(char* name)
     {
         name = makeOneSpace(name);
     }
+    return name;
 }
 
 char* makeOneSpace(char* str)
@@ -68,7 +69,7 @@ char* makeOneSpace(char* str)
     }
     i--;
     newStr[i] = '\0';
-    //needs malloc to return string
+    str = (char*)realloc(str, strlen(newStr) + 1);
     return strcpy(str, newStr);
 }
 
@@ -95,7 +96,7 @@ char* makeTwoSpaces(char* str)
     }
     i -= 2;
     newStr[i] = '\0';
-    //needs malloc to return string
+    str = (char*)realloc(str, strlen(newStr) + 1);
     return strcpy(str, newStr);
 }
 
@@ -110,7 +111,7 @@ char* capitalizeAllLetters(char* str)
             newStr[j + 1] = '_';
         }
     }
-    //needs malloc to return string
+    str = (char*)realloc(str, strlen(newStr) + 1);
     return strcpy(str, newStr);
 }
 
@@ -166,4 +167,9 @@ void cleanWhiteSpaces(char* str)
         *(strEnd + 1) = '\0';
         str = (char*)realloc(str, strlen(str) + 1);
     }
+}
+
+void freeAirport(Airport* pAirport)
+{
+    //needs to free the name because it uses malloc
 }

@@ -18,12 +18,13 @@ typedef struct
 int isSameAirport(Airport* pAirport1, Airport* pAirport2);
 int isAirportCode(Airport* pAirport, char* checkCode);
 Airport* initAirport(Airport* pAirport);
-char* getAirportName(char* name);
+char* getAirportName();
 char* makeOneSpace(char* str);
 char* makeTwoSpaces(char* str);
 char* capitalizeAllLetters(char* str);
 size_t getNumOfWords(char* str);
 void capitalizeFirstLetters(char* str);
 void cleanWhiteSpaces(char* str);
+void freeAirport(Airport* pAirport);
 
 #endif
