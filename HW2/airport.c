@@ -19,19 +19,18 @@ int isAirportCode(Airport* pAirport, char* checkCode)
     return 1;
 }
 
-Airport* initAirport(Airport* pAirport)
+Airport* initAirport()
 {
-    char* name = getAirportName(name);
-
+    Airport* pAirport = (Airport*)malloc(sizeof(Airport));
+    pAirport->name = getAirportName();
+    pAirport->country = getStrExactLength("Enter the country:\n");
+    //pAirport->code = initCode(); needs implementation
 }
 
 char* getAirportName()
 {
-    // char nameInput[MAX_STR];
-    // printf("Enter the airport's name:\n");
-    // gets(nameInput);
-    char* name = getStrExactLength("Enter the airport's name:\n");//(char*)realloc(name, strlen(nameInput) + 1);
-    cleanWhiteSpaces(name);
+    char* name = getStrExactLength("Enter the airport's name:\n");
+    cleanSpaces(name);
     capitalizeFirstLetters(name);
     size_t wordCount = getNumOfWords(name);
     if(wordCount == 1)
@@ -55,14 +54,14 @@ char* makeOneSpace(char* str)
     size_t i = 0, j = 0;
     while(str[j] != '\0')
     {
-        while(isspace(str[j]) == 0)
+        while(str[j] != ' ')
         {
             newStr[i] = str[j];
             i++;
             j++;
         }
         newStr[i++] = ' ';
-        while(isspace(str[j]))
+        while(str[j] == ' ')
         {
             j++;
         }
@@ -79,7 +78,7 @@ char* makeTwoSpaces(char* str)
     size_t i = 0, j = 0;
     while(str[j] != '\0')
     {
-        while(isspace(str[j]) == 0)
+        while(str[j] != ' ')
         {
             newStr[i] = str[j];
             i++;
@@ -89,7 +88,7 @@ char* makeTwoSpaces(char* str)
         {
             newStr[i++] = ' ';
         }
-        while(isspace(str[j]))
+        while(str[j] == ' ')
         {
             j++;
         }
@@ -120,12 +119,12 @@ size_t getNumOfWords(char* str)
     size_t wordCount = 0;
     while((char)*str != '\0')
     {
-        while(isspace((char)*str) == 0)
+        while((char)*str != ' ')
         {
             str++;
         }
         wordCount++;
-        while(isspace((char)*str))
+        while((char)*str == ' ')
         {
             str++;
         }
@@ -142,7 +141,7 @@ void capitalizeFirstLetters(char* str)
         }
         for(size_t i = 1; i < strlen(str); i++)
         {
-            if((char)*(str + i) >= 'a' && (char)*(str + i) <= 'z' && isspace((char)*(str + i - 1)))
+            if((char)*(str + i) >= 'a' && (char)*(str + i) <= 'z' && ((char)*(str + i - 1) == ' '))
             {
                 *(str + i) = *(str + i) - 32;
             }
@@ -150,17 +149,17 @@ void capitalizeFirstLetters(char* str)
     }
 }
 
-void cleanWhiteSpaces(char* str)
+void cleanSpaces(char* str)
 {
     if(str != NULL)
     {
         char *strEnd;
-        while(isspace((char)*str))
+        while((char)*str == ' ')
         {
             str++;
         }
         strEnd = str + strlen(str) - 1;
-        while(strEnd > str && isspace((char)*str))
+        while(strEnd > str && (char)*str == ' ')
         {
             strEnd--;
         }
@@ -169,7 +168,22 @@ void cleanWhiteSpaces(char* str)
     }
 }
 
+void printAirport(Airport* pAirport)
+{
+    if(pAirport != NULL)
+    {
+        printf("Airport name:%s     Country:%s      Code:%s",
+            pAirport->name, pAirport->country, pAirport->code);
+    }
+}
+
 void freeAirport(Airport* pAirport)
 {
-    //needs to free the name because it uses malloc
+    if(pAirport != NULL)
+    {
+        free(pAirport->name);
+        free(pAirport->country);
+        //free(pAirport->code);
+        free(pAirport);
+    }
 }
