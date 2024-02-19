@@ -4,8 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
-
-#define MAX_STR 255
+#include "generalStrings.h"
 #define IATA_LEN 3
 
 typedef struct
