@@ -23,8 +23,8 @@ char* makeOneSpace(char* str);
 char* makeTwoSpaces(char* str);
 char* capitalizeAllLetters(char* str);
 size_t getNumOfWords(char* str);
-void capitalizeFirstLetters(char* str);
-void cleanSpaces(char* str);
+char* capitalizeFirstLetters(char* str);
+char* cleanSpaces(char* str);
 void freeAirport(Airport* pAirport);
 void printAirport(Airport* pAirport);
 

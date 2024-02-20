@@ -30,8 +30,8 @@ Airport* initAirport()
 char* getAirportName()
 {
     char* name = getStrExactLength("Enter the airport's name:\n");
-    cleanSpaces(name);
-    capitalizeFirstLetters(name);
+    name = cleanSpaces(name);
+    name = capitalizeFirstLetters(name);
     size_t wordCount = getNumOfWords(name);
     if(wordCount == 1)
     {
@@ -131,7 +131,7 @@ size_t getNumOfWords(char* str)
     }
 }
 
-void capitalizeFirstLetters(char* str)
+char* capitalizeFirstLetters(char* str)
 {
     if(str != NULL)
     {
@@ -147,9 +147,10 @@ void capitalizeFirstLetters(char* str)
             }
         }
     }
+    return str;
 }
 
-void cleanSpaces(char* str)
+char* cleanSpaces(char* str)
 {
     if(str != NULL)
     {
@@ -166,6 +167,7 @@ void cleanSpaces(char* str)
         *(strEnd + 1) = '\0';
         str = (char*)realloc(str, strlen(str) + 1);
     }
+    return str;
 }
 
 void printAirport(Airport* pAirport)
