@@ -22,9 +22,45 @@ int isAirportCode(Airport* pAirport, char* checkCode)
 Airport* initAirport()
 {
     Airport* pAirport = (Airport*)malloc(sizeof(Airport));
-    pAirport->name = getAirportName();
-    pAirport->country = getStrExactLength("Enter the country:\n");
-    //pAirport->code = initCode(); needs implementation
+    if(pAirport != NULL)
+    {
+        pAirport->name = getAirportName();
+        pAirport->country = getStrExactLength("Enter the country:\n");
+        strcpy(pAirport->code, getCode());
+    }
+    return pAirport;
+}
+
+char* getCode()
+{
+    int codeValid;
+    char* code;
+    do
+    {
+        code = getStrExactLength("Enter the IATA code of the airport:\n");
+        codeValid = checkCode(code);
+        if(!codeValid)
+        {
+            printf("Code should be 3 letters\n");
+        }
+    } while (!codeValid);
+    return code;
+}
+
+int checkCode(const char* code)
+{
+    if(code[IATA_LEN] != '\0')
+    {
+        return 0;
+    }
+    for (size_t i = 0; i < IATA_LEN; i++)
+    {
+        if(code[i] < 'A' || code[i] > 'Z')
+        {
+            return 0;
+        }
+    }
+    return 1;
 }
 
 char* getAirportName()
@@ -68,7 +104,7 @@ char* makeOneSpace(char* str)
     }
     i--;
     newStr[i] = '\0';
-    str = (char*)realloc(str, strlen(newStr) + 1);
+    str = (char*)realloc(str, (strlen(newStr) + 1) * sizeof(char));
     return strcpy(str, newStr);
 }
 
@@ -95,7 +131,7 @@ char* makeTwoSpaces(char* str)
     }
     i -= 2;
     newStr[i] = '\0';
-    str = (char*)realloc(str, strlen(newStr) + 1);
+    str = (char*)realloc(str, (strlen(newStr) + 1) * sizeof(char));
     return strcpy(str, newStr);
 }
 
@@ -113,7 +149,7 @@ char* capitalizeAllLetters(char* str)
             }
         }
         newStr[strlen(newStr)] = '\0';
-        str = (char*)realloc(str, strlen(newStr) + 1);
+        str = (char*)realloc(str, (strlen(newStr) + 1) * sizeof(char));
         return strcpy(str, newStr);
     }
     return str;
@@ -170,7 +206,7 @@ char* cleanSpaces(char* str)
             strEnd--;
         }
         *(strEnd + 1) = '\0';
-        str = (char*)realloc(str, strlen(str) + 1);
+        str = (char*)realloc(str, (strlen(str) + 1) * sizeof(char));
     }
     return str;
 }

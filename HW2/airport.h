@@ -27,5 +27,7 @@ char* capitalizeFirstLetters(char* str);
 char* cleanSpaces(char* str);
 void freeAirport(Airport* pAirport);
 void printAirport(Airport* pAirport);
+int checkCode(const char* code);
+char* getCode();
 
 #endif
