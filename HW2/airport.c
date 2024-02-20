@@ -101,17 +101,22 @@ char* makeTwoSpaces(char* str)
 
 char* capitalizeAllLetters(char* str)
 {
-    char newStr[2 * strlen(str) + 1];
-    for(size_t i = 0, j = 0; i < strlen(str); i++, j += 2)
+    if(str != NULL)
     {
-        if(str[i] >= 'a' && str[i] <= 'z')
+        char newStr[2 * strlen(str) + 1];
+        for(size_t i = 0, j = 0; i < strlen(str); i++, j += 2)
         {
-            newStr[j] = str[i] - 32;
-            newStr[j + 1] = '_';
+            if(str[i] >= 'a' && str[i] <= 'z')
+            {
+                newStr[j] = str[i] - 32;
+                newStr[j + 1] = '_';
+            }
         }
+        newStr[strlen(newStr)] = '\0';
+        str = (char*)realloc(str, strlen(newStr) + 1);
+        return strcpy(str, newStr);
     }
-    str = (char*)realloc(str, strlen(newStr) + 1);
-    return strcpy(str, newStr);
+    return str;
 }
 
 size_t getNumOfWords(char* str)
@@ -141,7 +146,7 @@ char* capitalizeFirstLetters(char* str)
         }
         for(size_t i = 1; i < strlen(str); i++)
         {
-            if((char)*(str + i) >= 'a' && (char)*(str + i) <= 'z' && ((char)*(str + i - 1) == ' '))
+            if(str[i] >= 'a' && str[i] <= 'z' && (str[i - 1] == ' '))
             {
                 *(str + i) = *(str + i) - 32;
             }
