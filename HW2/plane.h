@@ -2,7 +2,8 @@
 #define __PLANE_H__
 
 #include <stdio.h>
-#include "airline.h"
+#include <string.h>
+#include <stdlib.h>
 
 #define SERIAL_MAX 9999
 #define SERIAL_MIN 1

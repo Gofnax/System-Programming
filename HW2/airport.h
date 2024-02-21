@@ -22,7 +22,7 @@ char* getAirportName();
 char* makeOneSpace(char* str);
 char* makeTwoSpaces(char* str);
 char* capitalizeAllLetters(char* str);
-size_t getNumOfWords(char* str);
+int getNumOfWords(const char* str);
 char* capitalizeFirstLetters(char* str);
 char* cleanSpaces(char* str);
 void freeAirport(Airport* pAirport);

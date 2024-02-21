@@ -8,6 +8,7 @@
 #include <string.h>
 #include "plane.h"
 #include "flight.h"
+#include "generalStrings.h"
 
 typedef struct
 {

@@ -1,17 +1,24 @@
 #include "airport.h"
 
-
 int isSameAirport(Airport* pAirport1, Airport* pAirport2)
 {
-    if(strcmp(pAirport1->code, pAirport2->code))
+    if(pAirport1 != NULL && pAirport1 != NULL)
     {
-        return 0;
+        if(strcmp(pAirport1->code, pAirport2->code))
+        {
+            return 0;
+        }
+        return 1;
     }
-    return 1;
+    return -1;
 }
 
 int isAirportCode(Airport* pAirport, char* checkCode)
 {
+    if(pAirport == NULL)
+    {
+        return -1;
+    }
     if(strcmp(pAirport->code, checkCode))
     {
         return 0;
@@ -37,7 +44,8 @@ char* getCode()
     char* code;
     do
     {
-        code = getStrExactLength("Enter the IATA code of the airport:\n");
+        printf("Enter the IATA code of the airport:\n");
+        code = myGets(code, IATA_LEN + 1);
         codeValid = checkCode(code);
         if(!codeValid)
         {
@@ -68,7 +76,7 @@ char* getAirportName()
     char* name = getStrExactLength("Enter the airport's name:\n");
     name = cleanSpaces(name);
     name = capitalizeFirstLetters(name);
-    size_t wordCount = getNumOfWords(name);
+    int wordCount = getNumOfWords(name);
     if(wordCount == 1)
     {
         name = capitalizeAllLetters(name);
@@ -77,7 +85,7 @@ char* getAirportName()
     {
         name = makeTwoSpaces(name);
     }
-    else
+    else if(wordCount % 2 == 1)
     {
         name = makeOneSpace(name);
     }
@@ -86,15 +94,17 @@ char* getAirportName()
 
 char* makeOneSpace(char* str)
 {
+    if(str == NULL)
+    {
+        return NULL;
+    }
     char newStr[MAX_STR];
     size_t i = 0, j = 0;
     while(str[j] != '\0')
     {
         while(str[j] != ' ')
         {
-            newStr[i] = str[j];
-            i++;
-            j++;
+            newStr[i++] = str[j++];
         }
         newStr[i++] = ' ';
         while(str[j] == ' ')
@@ -110,15 +120,17 @@ char* makeOneSpace(char* str)
 
 char* makeTwoSpaces(char* str)
 {
+    if(str == NULL)
+    {
+        return NULL;
+    }
     char newStr[MAX_STR];
     size_t i = 0, j = 0;
     while(str[j] != '\0')
     {
         while(str[j] != ' ')
         {
-            newStr[i] = str[j];
-            i++;
-            j++;
+            newStr[i++] = str[j++];
         }
         for(size_t k = 0; k < 2; k++)
         {
@@ -139,8 +151,13 @@ char* capitalizeAllLetters(char* str)
 {
     if(str != NULL)
     {
-        char newStr[2 * strlen(str) + 1];
-        for(size_t i = 0, j = 0; i < strlen(str); i++, j += 2)
+        size_t len = strlen(str);
+        char* newStr = (char*)malloc((2 * len + 1) * sizeof(char));
+        if(newStr == NULL)
+        {
+            return NULL;
+        }
+        for(size_t i = 0, j = 0; i < len; i++, j += 2)
         {
             if(str[i] >= 'a' && str[i] <= 'z')
             {
@@ -150,14 +167,20 @@ char* capitalizeAllLetters(char* str)
         }
         newStr[strlen(newStr)] = '\0';
         str = (char*)realloc(str, (strlen(newStr) + 1) * sizeof(char));
-        return strcpy(str, newStr);
+        strcpy(str, newStr);
+        free(newStr);
+        return str;
     }
     return str;
 }
 
-size_t getNumOfWords(char* str)
+int getNumOfWords(const char* str)
 {
-    size_t wordCount = 0;
+    if(str == NULL)
+    {
+        return -1;
+    }
+    int wordCount = 0;
     while((char)*str != '\0')
     {
         while((char)*str != ' ')
@@ -170,21 +193,23 @@ size_t getNumOfWords(char* str)
             str++;
         }
     }
+    return wordCount;
 }
 
 char* capitalizeFirstLetters(char* str)
 {
     if(str != NULL)
     {
-        if((char)*str >= 'a' && (char)*str <= 'z')
+        size_t len = strlen(str);
+        if(str[0] >= 'a' && str[0] <= 'z')
         {
-            *str = *str - 32;   //makes letter uppercase
+            str[0] = str[0] - 32;   //makes letter uppercase
         }
-        for(size_t i = 1; i < strlen(str); i++)
+        for(size_t i = 1; i < len; i++)
         {
             if(str[i] >= 'a' && str[i] <= 'z' && (str[i - 1] == ' '))
             {
-                *(str + i) = *(str + i) - 32;
+                str[i] = str[i] - 32;
             }
         }
     }
@@ -201,7 +226,7 @@ char* cleanSpaces(char* str)
             str++;
         }
         strEnd = str + strlen(str) - 1;
-        while(strEnd > str && (char)*str == ' ')
+        while(strEnd > str && strEnd[0] == ' ')//bulbul;
         {
             strEnd--;
         }
@@ -226,7 +251,7 @@ void freeAirport(Airport* pAirport)
     {
         free(pAirport->name);
         free(pAirport->country);
-        //free(pAirport->code);
+        free(pAirport->code);
         free(pAirport);
     }
 }

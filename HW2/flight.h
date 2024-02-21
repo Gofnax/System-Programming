@@ -13,4 +13,5 @@ typedef struct
     Date theDate;
 }Flight;
 
+void printFlight(Flight* pFlight);
 #endif

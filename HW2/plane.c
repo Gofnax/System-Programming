@@ -2,6 +2,10 @@
 
 void initPlane(Plane* pPlane, Plane* planeArr, int planeCount)
 {
+    if(pPlane == NULL || planeArr == NULL)
+    {
+        return;
+    }
     int type, serialNum;
     int serialNumExists;
     do
@@ -46,7 +50,11 @@ int checkSerialNumValidity(Plane* pPlane)
 
 int isPlaneValid(Plane* pPlane)
 {
-    if(pPlane->type < 0 || pPlane->type > NumOfTypes || pPlane->serialNumber < 1 || pPlane > 9999)
+    if(pPlane == NULL)
+    {
+        return -1;
+    }
+    if(pPlane->type < 0 || pPlane->type > NumOfTypes || pPlane->serialNumber < 1 || pPlane->serialNumber > 9999)
     {
         return 0;
     }
