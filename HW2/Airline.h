@@ -1,14 +1,12 @@
 #ifndef __AIRLINE_H__
 #define __AIRLINE_H__
 
-#define MAX_STR 255
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "plane.h"
-#include "flight.h"
-#include "generalStrings.h"
+#include "Plane.h"
+#include "Flight.h"
+#include "GeneralStrings.h"
 
 typedef struct
 {

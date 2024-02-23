@@ -22,7 +22,7 @@ typedef struct
 int checkSerialNumValidity(Plane* pPlane);
 void initPlane(Plane* pPlane, Plane* planeArr, int planeCount);
 int isPlaneValid(Plane* pPlane);
-void printPlane(Plane* pPlane);
+void printPlane(const Plane* pPlane);
 int doesPlaneExist(Plane* pPlane, Plane* planeArr, size_t planeCount);
 void freePlane(Plane* pPlane);
 

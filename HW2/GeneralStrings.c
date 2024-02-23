@@ -1,4 +1,4 @@
-#include "generalStrings.h"
+#include "GeneralStrings.h"
 
 
 char* getStrExactLength(const char* msg)
@@ -33,7 +33,7 @@ char* myGets(char* buffer, int size)
 	{
 		do {
 			ok = fgets(buffer, size, stdin);
-		} while (ok && ((strlen(buffer) <= 1) && (isspace(buffer[0]))));
+		} while (ok && (strlen(buffer) <= 1));
 		if (ok)
 		{
 			char* back = buffer + strlen(buffer);

@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
-#include "generalStrings.h"
+#include "GeneralStrings.h"
 
 #define IATA_LEN 3
 
@@ -18,7 +18,7 @@ typedef struct
 int isSameAirport(Airport* pAirport1, Airport* pAirport2);
 int isAirportCode(Airport* pAirport, char* checkCode);
 Airport* initAirport();
-char* getAirportName();
+void getAirportName(Airport* pAirport);
 char* makeOneSpace(char* str);
 char* makeTwoSpaces(char* str);
 char* capitalizeAllLetters(char* str);
@@ -29,5 +29,7 @@ void freeAirport(Airport* pAirport);
 void printAirport(Airport* pAirport);
 int checkCode(const char* code);
 char* getCode();
+void getAirportCode(char* code);
+void initAirportNoCode(Airport* pAirport);
 
 #endif

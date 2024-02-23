@@ -1,4 +1,4 @@
-#include "plane.h"
+#include "Plane.h"
 
 void initPlane(Plane* pPlane, Plane* planeArr, int planeCount)
 {
@@ -10,12 +10,7 @@ void initPlane(Plane* pPlane, Plane* planeArr, int planeCount)
     int serialNumExists;
     do
     {
-        printf("Enter a plane type: (0 - Commercial, 1 - Cargo, 2 - Military)\n");
-        (void)scanf("%d", &type);
-    }while(type < 0 || type >= NumOfTypes);
-    do
-    {
-        printf("Enter a serial number for the plane:\n");
+        printf("Enter plane serial number - between 1 to 9999\n");
         (void)scanf("%d", &serialNum);
         for(size_t i = 0; i < planeCount; i++)
         {
@@ -29,6 +24,11 @@ void initPlane(Plane* pPlane, Plane* planeArr, int planeCount)
             printf("Invalid serial number\n");
         }
     }while(serialNumExists || checkSerialNumValidity(pPlane));
+    do
+    {
+        printf("Enter a plane type: (0 - Commercial, 1 - Cargo, 2 - Military)\n");
+        (void)scanf("%d", &type);
+    }while(type < 0 || type >= NumOfTypes);
 }
 
 int checkSerialNumValidity(Plane* pPlane)
@@ -77,7 +77,7 @@ int doesPlaneExist(Plane* pPlane, Plane* planeArr, size_t planeCount)
     return 0;
 }
 
-void printPlane(Plane* pPlane)
+void printPlane(const Plane* pPlane)
 {
     if(pPlane != NULL)
     {

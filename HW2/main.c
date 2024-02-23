@@ -1,45 +1,71 @@
 #include <stdio.h>
-#include "airline.h"
-#include "airport.h"
-#include "date.h"
-#include "flight.h"
-#include "plane.h"
-#include "airportmanager.h"
+#include <stdlib.h>
+#include "Airport.h"
+#include "Plane.h"
+#include "Date.h"
 
-int main(void)
+int main()
 {
-    //initAirportManager();
-    //initAirline();
-    char option = 0, buffer = 0;
+    int opt;
+    printf("Please choose one of the following options\n");
+    printf("1 - Date\n");
+    printf("2 - Plane\n");
+    printf("3 - Airport Code\n");
+    printf("4 - Airport Name\n");
+    printf("5 - Airport\n");
+    scanf("%d", &opt);
+    getchar();
 
-	do
-	{
-		printf("\n\n");
-		printf("Please choose one of the following options:\n");
-		printf("S/s - Sudoku\n");
-		printf("A/a - All Lines\n");
-		printf("P/p - Picture Manipulation\n");
-		printf("E/e - Exit\n");
+    Date d;
+    Plane p;
+    Airport port1;
+    switch (opt)
+    {
+    case 1:
+        //A function that gets a pointer to struct date , ask the user for the date
+        //and parse 3 ints (day,month,year)
+        getCorrectDate(&d);
+        printDate(&d);
+        printf("\n");
+        break;
 
-		scanf("%c", &option);
-		
-		switch (option)
-		{	
-			case 's':
+    case 2:
+        //A function that gets a pointer to struct Plane, 
+        //the plane array and the planes count in array.
+        //The function get from the user the serial number (check that it is ok and unique)
+        // and the plane type.
+        initPlane(&p, NULL, 0);
+        printPlane(&p);
+        printf("\n");
+        break;
 
-				break;
-			case 'a':
+    case 3:
+        //A function that init the airport code.
+        //The function ask the user for a code 
+        //check that the code is 3 upper case letters
+        getAirportCode(port1.code);
+        printf("%s\n", port1.code);
+        break;
 
-				break;
-			case 'p':
+    case 4:
+        //function get a pointer to a struct Airport.
+        //The function ask the user for name
+        // The function set the name based on the rule given
+        getAirportName(&port1);
+        printf("%s\n", port1.name);
+        free(port1.name);
+        break;
 
-				break;
-			case 'e':
-            
-				break;
-			default:
-				printf("Wrong option\n");
-		}
-		scanf("%c", &buffer);	//buffer cleaning
-	}while((option != 'e') && (option != 'E'));
+    case 5:
+        getAirportCode(port1.code);
+        //After setting the code this function get the address of the struct Airport
+        //The function ask the user for airport name and country
+        //The function init these fields
+        initAirportNoCode(&port1);
+        printAirport(&port1);
+        freeAirport(&port1);
+        break;
+
+    }
+
 }
