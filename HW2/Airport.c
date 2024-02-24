@@ -32,7 +32,7 @@ Airport* initAirport()
     if(pAirport != NULL)
     {
         getAirportName(pAirport);
-        pAirport->country = getStrExactLength("Enter airport country\n");
+        pAirport->country = getStrExactLength("Enter airport country");
         strcpy(pAirport->code, getCode());
     }
     return pAirport;
@@ -43,7 +43,7 @@ void initAirportNoCode(Airport* pAirport)
     if(pAirport != NULL)
     {
         getAirportName(pAirport);
-        pAirport->country = getStrExactLength("Enter airport country\n");
+        pAirport->country = getStrExactLength("Enter airport country");
     }
 }
 

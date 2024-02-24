@@ -51,6 +51,8 @@ void   initFlight(Flight* pFlight, Plane* pPlane,const AirportManager* pManager)
 
 	if (isPlaneValid(pPlane))
 		memcpy(&pFlight->thePlane, pPlane, sizeof(Plane));
+	else
+		printf("Invalid plane for initFlight\n");
 
 }
 

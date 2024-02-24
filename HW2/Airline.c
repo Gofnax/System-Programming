@@ -13,20 +13,61 @@ void initAirline(Airline* pAirline)
     }
 }
 
-int addFlight(Flight* pFlight, Airline* pAirline, size_t numOfAirports)
+int addFlight(Airline* pAirline, AirportManager* pManager)
 {
-    // if(pAirline != NULL && pFlight != NULL)
-    // {
-    //     if(numOfAirports < 2 || isPlaneInitialized(&(pFlight->thePlane)) == NULL || 
-    //         doesFlightExist(pFlight, pAirline->flightArr, pAirline->flightCount))
-    //     {
-    //         return 0;
-    //     }
-    //     pAirline->flightArr[pAirline->flightCount - 1] = pFlight;
-    //     pAirline->flightCount++;
-    //     return 1;
-    // }
+    if(pAirline != NULL && pManager != NULL)
+    {
+        if(pManager->numOfAirports < 2)
+        {
+            printf("There are not enough airport to set a flight\n");
+            return 0;
+        }
+        if(pAirline->flightArr == NULL)
+        {
+            pAirline->flightArr = (Flight**)malloc(sizeof(Flight*));
+        }
+        else
+        {
+            pAirline->flightArr = (Flight**)realloc(pAirline->flightArr, sizeof(Flight*) * (pAirline->flightCount + 1));
+        }
+        
+        int planeSerialNumChoice = 0;
+        printf("Choose a plane from list, type its serial Number\n");
+        printPlanesArr(pAirline->planeArr, pAirline->planeCount);
+        int planeChoiceValid = 0;
+        do
+        {
+            scanf("%d", &planeSerialNumChoice);
+            planeChoiceValid = doesPlaneExistBySerial(pAirline, planeSerialNumChoice);
+            if(!planeChoiceValid)
+                printf("No plane with that serial number! Try again!\n");
+        } while (!planeChoiceValid);
+        
+        Plane* pPlane = getPlaneBySerialNum(pAirline, planeSerialNumChoice);
+        printAirports(pManager);
+        printf("\n");
+
+        Flight* pFlight = (Flight*)malloc(sizeof(Flight));
+        initFlight(pFlight, pPlane, pManager);
+        pAirline->flightArr[pAirline->flightCount++] = pFlight;
+        return 1;
+    }
     return 0;
+}
+
+Plane* getPlaneBySerialNum(Airline* pAirline, int serialNum)
+{
+    if(pAirline != NULL)
+    {
+        for(size_t i = 0; i < pAirline->planeCount; i++)
+        {
+            if(pAirline->planeArr[i].serialNumber == serialNum)
+            {
+                return &pAirline->planeArr[i];
+            }
+        }
+    }
+    return NULL;
 }
 
 void initPlane(Plane* pPlane, Airline* pAirline)
@@ -77,22 +118,33 @@ int addPlane(Airline* pAirline)
     {
         Plane* pPlane = (Plane*)malloc(sizeof(Plane));
         initPlane(pPlane, pAirline);
-        /*if(doesPlaneExist(pPlane, pAirline->planeArr, pAirline->planeCount))
-        {
-            return 0;
-        }*/
         pAirline->planeCount++;
         return 1;
     }
     return 0;
 }
 
-void doPrintFlightsWithPlaneType(void)
+void doPrintFlightsWithPlaneType(Airline* pAirline)
 {
     int input;
     printf("Enter a plane type: (0 - Commercial, 1 - Cargo, 2 - Military)\n");
     (void)scanf("%d", &input);
     //needs to be updated when 'Flight.c' will be integrated
+}
+
+int doesPlaneExistBySerial(Airline* pAirline, int serilNum)
+{
+    if(pAirline != NULL)
+    {
+        for(size_t i = 0; i < pAirline->planeCount; i++)
+        {
+            if(pAirline->planeArr[i].serialNumber == serilNum)
+            {
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 int doesFlightExist(Flight* pFlight, Flight** flightArr, size_t flightCount)
@@ -132,13 +184,17 @@ void printAirline(Airline* pAirline)
     }
 }
 
+void printCompany(Airline* pAirline)
+{
+    printAirline(pAirline);
+}
+
 void printPlanesArr(Plane* planeArr, int planeCount)
 {
     if(planeArr != NULL)
     {
         for(size_t i = 0; i < planeCount; i++)
         {
-            printf("The plane %d:\n", i);
             printPlane(&planeArr[i]);
         }
     }
@@ -155,14 +211,9 @@ void freeAirline(Airline* pAirline)
     {
         for(size_t i = 0; i < pAirline->flightCount; i++)
         {
-            //freeFlight(pAirline->flightArr[i]);
+            freeFlight(pAirline->flightArr[i]);
         }
-        /*for(size_t i = 0; i < pAirline->planeCount; i++)
-        {
-            freePlane(pAirline->planeArr + i);
-        }*/
         free(pAirline->planeArr);
         free(pAirline->name);
-        //free(pAirline);
     }
 }
