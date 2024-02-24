@@ -10,7 +10,7 @@ void   initFlight(Flight* pFlight, Plane* pPlane,const AirportManager* pManager)
 		return;
 	Airport* srcAirport;
 	Airport* desAirport;
-	char* code;
+	char* code = NULL;
 
 	while (1)
 	{
