@@ -18,11 +18,14 @@ typedef struct
 }Airline;
 
 int addFlight(Flight* pFlight, Airline* pAirline, size_t numOfAirports);  //returns 1 if the flight added successfully, 0 otherwise
-int addPlane(Plane* pPlane, Airline* pAirline);   //return 1 if the plane added successfully, 0 otherwise
+int addPlane(Airline* pAirline);   //return 1 if the plane added successfully, 0 otherwise
 void doPrintFlightsWithPlaneType(void);
 int doesFlightExist(Flight* pFlight, Flight** flightArr, size_t flightCount);   //return 1 if flight exists, 0 otherwise
-Airline* initAirline(Airline* pAirline);
+void initAirline(Airline* pAirline);
 void printAirline(Airline* pAirline);
 void freeAirline(Airline* pAirline);
+void printPlanesArr(Plane* planeArr, int planeCount);
+void freeCompany(Airline* pAirline);
+void initPlane(Plane* pPlane, Airline* pAirline);
 
 #endif

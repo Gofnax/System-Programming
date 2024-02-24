@@ -20,7 +20,6 @@ typedef struct
 //  returns 0 if serial number is valid
 //  returns 1 if serial number is too big
 int checkSerialNumValidity(Plane* pPlane);
-void initPlane(Plane* pPlane, Plane* planeArr, int planeCount);
 int isPlaneValid(Plane* pPlane);
 void printPlane(const Plane* pPlane);
 int doesPlaneExist(Plane* pPlane, Plane* planeArr, size_t planeCount);

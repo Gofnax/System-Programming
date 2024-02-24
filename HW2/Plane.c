@@ -1,36 +1,5 @@
 #include "Plane.h"
 
-void initPlane(Plane* pPlane, Plane* planeArr, int planeCount)
-{
-    if(pPlane == NULL || planeArr == NULL)
-    {
-        return;
-    }
-    int type, serialNum;
-    int serialNumExists;
-    do
-    {
-        printf("Enter plane serial number - between 1 to 9999\n");
-        (void)scanf("%d", &serialNum);
-        for(size_t i = 0; i < planeCount; i++)
-        {
-            if(serialNum == planeArr[i].serialNumber)
-            {
-                serialNumExists = 1;
-            }
-        }
-        if(serialNumExists || checkSerialNumValidity(pPlane))
-        {
-            printf("Invalid serial number\n");
-        }
-    }while(serialNumExists || checkSerialNumValidity(pPlane));
-    do
-    {
-        printf("Enter a plane type: (0 - Commercial, 1 - Cargo, 2 - Military)\n");
-        (void)scanf("%d", &type);
-    }while(type < 0 || type >= NumOfTypes);
-}
-
 int checkSerialNumValidity(Plane* pPlane)
 {
     if(pPlane != NULL)
@@ -81,16 +50,16 @@ void printPlane(const Plane* pPlane)
 {
     if(pPlane != NULL)
     {
-        printf("Plane serial number: %d, of type: ", pPlane->serialNumber);
+        printf("Plane: serial number:%d, type ", pPlane->serialNumber);
         switch(pPlane->type)
         {
-            Commercial:
+            case Commercial:
                 printf("Commercial\n");
                 break;
-            Cargo:
+            case Cargo:
                 printf("Cargo\n");
                 break;
-            Military:
+            case Military:
                 printf("Military\n");
                 break;
             default:

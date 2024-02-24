@@ -1,11 +1,11 @@
 #ifndef __FLIGHT_H__
 #define __FLIGHT_H__
 
-
 #include "Airport.h"
 #include "Plane.h"
 #include "AirportManager.h"
 #include "Date.h"
+
 typedef struct
 {
 	char srcCode[IATA_LEN + 1];
