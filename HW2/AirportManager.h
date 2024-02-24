@@ -1,7 +1,9 @@
 #ifndef __AIRPORTMANAGER_H__
 #define __AIRPORTMANAGER_H__
 
+#include <string.h>
 #include "Airport.h"
+
 typedef struct 
 {
 	Airport** airportArr;
@@ -9,10 +11,12 @@ typedef struct
 }AirportManager;
 
 int initManager(AirportManager* manager);
-int addAirpot(AirportManager* pManager,Airport* airport);
+int addAirport(AirportManager* pManager);
 Airport* findAirportByCode(const AirportManager* manager,char* code);
 void printAirports(const AirportManager* pManger);
-int doesAirportExist(const AirportManager* pManager, Airport* airport);
+int doesAirportExist(const AirportManager* pManager, Airport* pAirport);
 void freeAirportManager(AirportManager* pManager);
-#endif // !__AIRPORTMANAGER_H__
+void freeManager(AirportManager* pManager);
+
+#endif
 

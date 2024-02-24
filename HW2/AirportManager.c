@@ -7,22 +7,30 @@ int initManager(AirportManager* manager)
 	return 1;
 }
 
-int addAirpot(AirportManager* pManager, Airport* airport)
+int addAirport(AirportManager* pManager)
 {
-	if (doesAirportExist(pManager, airport) == 0)
+	if(pManager == NULL)
 		return 0;
 
-	Airport** newAirportArr = realloc(pManager->airportArr, (pManager->numOfAirports + 1) * sizeof(Airport*));
-	if (newAirportArr == NULL)
+	pManager->airportArr = realloc(pManager->airportArr, (pManager->numOfAirports + 1) * sizeof(Airport*));
+	if (pManager->airportArr == NULL)
 		return 0;
 
-	strncpy(newAirportArr[pManager->numOfAirports]->name, airport->name, strlen(airport->name));
-	strncpy(newAirportArr[pManager->numOfAirports]->country, airport->country, strlen(airport->country));
-	strncpy(newAirportArr[pManager->numOfAirports]->code, airport->code, IATA_LEN);
+	Airport* pAirport = (Airport*)malloc(sizeof(Airport));
+	if(pAirport == NULL)
+		return 0;
 
-	pManager->airportArr = newAirportArr;
-	pManager->numOfAirports++;
-
+	int codeInUse = 0;
+	do
+	{
+		getAirportCode(pAirport->code);
+		codeInUse = doesAirportExist(pManager, pAirport);
+		if(codeInUse)
+		    printf("This code already in use - enter a different code\n");
+	}while(codeInUse);
+	
+	initAirportNoCode(pAirport);
+	pManager->airportArr[pManager->numOfAirports++] = pAirport;
 	return 1;
 }
 
@@ -44,11 +52,14 @@ void printAirports(const AirportManager* pManager)
 		printAirport(pManager->airportArr[i]);
 	}
 }
-int doesAirportExist(const AirportManager* pManager,Airport* airport)
+int doesAirportExist(const AirportManager* pManager,Airport* pAirport)
 {
-	for (int i = 0; i < sizeof(pManager->airportArr); i++)
+    if(pManager == NULL || pAirport == NULL)
+        return 0;
+    
+	for (int i = 0; i < pManager->numOfAirports; i++)
 	{
-		if (isSameAirport(airport, pManager->airportArr[i]) == 1)
+		if (isSameAirport(pAirport, pManager->airportArr[i]) == 1)
 		{
 			return 1;
 		}
@@ -64,6 +75,10 @@ void freeAirportManager(AirportManager* pManager)
 		{
 			freeAirport(pManager->airportArr[i]);
 		}
-		free(pManager);
 	}
+}
+
+void freeManager(AirportManager* pManager)
+{
+	freeAirportManager(pManager);
 }

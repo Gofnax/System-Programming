@@ -116,28 +116,28 @@ void getAirportName(Airport* pAirport)
 
 char* makeOneSpace(char* str)
 {
-    if(str == NULL)
+    if(str != NULL)
     {
-        return NULL;
-    }
-    char newStr[MAX_STR];
-    size_t i = 0, j = 0;
-    while(str[j] != '\0')
-    {
-        while(str[j] != ' ')
+        char newStr[MAX_STR];
+        size_t i = 0, j = 0;
+        while(str[j] != '\0')
         {
-            newStr[i++] = str[j++];
+            while(str[j] != ' ' && str[j] != '\0')
+            {
+                newStr[i++] = str[j++];
+            }
+            newStr[i++] = ' ';
+            while(str[j] == ' ')
+            {
+                j++;
+            }
         }
-        newStr[i++] = ' ';
-        while(str[j] == ' ')
-        {
-            j++;
-        }
+        i--;
+        newStr[i] = '\0';
+        str = (char*)realloc(str, (strlen(newStr) + 1) * sizeof(char));
+        return strcpy(str, newStr);
     }
-    i--;
-    newStr[i] = '\0';
-    str = (char*)realloc(str, (strlen(newStr) + 1) * sizeof(char));
-    return strcpy(str, newStr);
+    return NULL;
 }
 
 char* makeTwoSpaces(char* str)
@@ -268,7 +268,7 @@ void printAirport(Airport* pAirport)
 {
     if(pAirport != NULL)
     {
-        printf("Airport name:%s     Country:%s      Code:%s",
+        printf("Airport name:%-25s Country:%-25s Code:%s\n",
             pAirport->name, pAirport->country, pAirport->code);
     }
 }
