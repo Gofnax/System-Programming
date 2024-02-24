@@ -34,16 +34,18 @@ int addAirport(AirportManager* pManager)
 	return 1;
 }
 
-Airport* findAirportByCode(const AirportManager* manager, char* code)
+Airport* findAirportByCode(const AirportManager* pManager, char* code)
 {
-	for (int i = 0; i < manager->numOfAirports; i++) {
-		if (manager->airportArr[i]->code == code)
+	for (int i = 0; i < pManager->numOfAirports; i++)
+	{
+		if (strcmp(pManager->airportArr[i]->code, code) == 0)
 		{
-			return manager->airportArr[i];
+			return pManager->airportArr[i];
 		}
 	}
 	return NULL;
 }
+
 void printAirports(const AirportManager* pManager)
 {
 	printf("there are %d airports\n", pManager->numOfAirports);
@@ -52,6 +54,7 @@ void printAirports(const AirportManager* pManager)
 		printAirport(pManager->airportArr[i]);
 	}
 }
+
 int doesAirportExist(const AirportManager* pManager,Airport* pAirport)
 {
     if(pManager == NULL || pAirport == NULL)

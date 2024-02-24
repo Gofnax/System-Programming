@@ -4,60 +4,56 @@
 
 #include "Flight.h"
 
-void   initFlight(Flight* pFlight, Plane* thePlane,const AirportManager* pManager)
+void   initFlight(Flight* pFlight, Plane* pPlane,const AirportManager* pManager)
 {
+	if(pFlight == NULL || pPlane == NULL || pManager == NULL)
+		return;
 	Airport* srcAirport;
 	Airport* desAirport;
-	char code[IATA_LEN + 1];
-	/*char inDate[13];*/
+	char* code;
 
 	while (1)
 	{
-		printf("Enter code of origin airport: \n");
-		fgets(code, sizeof(code), stdin);
-		if (checkCode(code) != 0 && findAirportByCode(pManager ,code ) != NULL)
+		printf("Enter code of origin airport:   \n");
+		code = myGets(code, IATA_LEN + 2);
+		if (checkCode(code) != 0 && findAirportByCode(pManager, code) != NULL)
 		{
-			//strncpy(pFlight->srcCode, code, IATA_LEN);
 			srcAirport = findAirportByCode(pManager, code);
-			//setSrcAirport(code, srcAirport, pFlight, pManager);
 			strcpy(pFlight->srcCode, srcAirport->code);
-			//pFlight->srcCode == srcAirport->code;
 			break;
 		}
-		else printf("No airport with this code - try again");
+		else
+			printf("No airport with this code - try again\n");
 	}
 	while (1)
 	{
 		printf("Enter code of destination airport: \n");
-		fgets(code, sizeof(code), stdin);
+		code = myGets(code, IATA_LEN + 2);
 		if (checkCode(code) != 0 && findAirportByCode(pManager, code) != NULL)
 		{
-			//strncpy(pFlight->desCode, code, IATA_LEN);
-			desAirport = findAirportByCode(pManager, code);
-			//setDesAirport(code, desAirport, pFlight, pManager);
-			strcpy(pFlight->desCode, desAirport->code);
-			//pFlight->desCode == desAirport->code;
-			break;
+			if(strcmp(pFlight->srcCode, code))
+			{
+				desAirport = findAirportByCode(pManager, code);
+				strcpy(pFlight->desCode, desAirport->code);
+				break;
+			}
+			else
+			{
+				printf("Same origin and destination airport\n");
+			}
 		}
-		else printf("No airport with this code - try again");
+		else
+			printf("No airport with this code - try again\n");
 	}
 
 	
 	getCorrectDate(&pFlight->theDate);
-	/*while (1)
-	{
-		printf("Enter Flight Date dd##mm##yyyy  minimum year 2022\n");
-		fgets(inDate, sizeof(inDate), stdin);
-		initDate(&(pFlight->theDate), inDate);
-		if (isDateValid(&pFlight->theDate, inDate))
-			break;
-		else printf("Error try again\n");
-	}*/
 
-	if (isPlaneValid(thePlane))
-		pFlight->thePlane = *thePlane; //missing else , in case the plane isn't valid
+	if (isPlaneValid(pPlane))
+		memcpy(&pFlight->thePlane, pPlane, sizeof(Plane));
 
 }
+
 void freeFlight(Flight* pFlight)
 {
 	if (pFlight != NULL)
@@ -92,6 +88,7 @@ void printFlight(const Flight* pFlight)
 	Date date = pFlight->theDate;
 	printf("Flight From %s To %s\t",pFlight->srcCode, pFlight->desCode);
 	printDate(&date);
+	printf(" ");
 	printPlane(&pFlight->thePlane);
 }
 

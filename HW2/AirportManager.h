@@ -12,7 +12,7 @@ typedef struct
 
 int initManager(AirportManager* manager);
 int addAirport(AirportManager* pManager);
-Airport* findAirportByCode(const AirportManager* manager,char* code);
+Airport* findAirportByCode(const AirportManager* pManager, char* code);
 void printAirports(const AirportManager* pManger);
 int doesAirportExist(const AirportManager* pManager, Airport* pAirport);
 void freeAirportManager(AirportManager* pManager);

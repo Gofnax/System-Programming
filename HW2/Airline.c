@@ -4,7 +4,7 @@ void initAirline(Airline* pAirline)
 {
     if(pAirline != NULL)
     {
-        char* name = getStrExactLength(" Enter Airline name");
+        char* name = getStrExactLength("Enter Airline name");
         pAirline->name = name;
         pAirline->flightCount = 0;
         pAirline->flightArr = NULL;
