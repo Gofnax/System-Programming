@@ -22,7 +22,7 @@
                 "-fdiagnostics-color=always",
                 "-I${workspaceFolder}/include",
                 "-g",
-                "${file}",
+                "${workspaceFolder}/src/*.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
