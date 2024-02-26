@@ -10,5 +10,6 @@ int main(void)
     printf("Please enter a number:\n");
     int ret = scanf("%d", &basis);
     printTriangle(basis);
+    printf("\n");
     return ret;
 }

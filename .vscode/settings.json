@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "typeinfo": "c",
-        "string.h": "c",
-        "generalstrings.h": "c"
-    }
-}
