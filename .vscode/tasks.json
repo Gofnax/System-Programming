@@ -20,9 +20,16 @@
             "command": "/usr/bin/gcc",
             "args": [
                 "-fdiagnostics-color=always",
-                "-I${workspaceFolder}/include",
+                //"-I${workspaceFolder}/include",
                 "-g",
-                "${workspaceFolder}/src/*.c",
+                "${file}",              //works with C/C++ extension version 1.18.5
+                //"${workspaceFolder}/src/*.c", <------option 1
+                // "$(find", <-------------------------option 2
+                // "${workspaceFolder}/src",
+                // "-type",
+                // "f",
+                // "-iregex",
+                // "'.*\\.c')",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
