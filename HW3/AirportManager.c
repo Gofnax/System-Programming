@@ -77,15 +77,15 @@ int checkUniqeCode(const char* code,const AirportManager* pManager)
 }
 
 
-void	printAirports(const AirportManager* pManager)
-{
-	printf("there are %d airports\n", pManager->airportsCount);
-	for (int i = 0; i < pManager->airportsCount; i++)
-	{
-		printAirport(pManager->airportsArray[i]);
-		printf("\n");
-	}
-}
+// void	printAirports(const AirportManager* pManager)
+// {
+// 	printf("there are %d airports\n", pManager->airportsCount);
+// 	for (int i = 0; i < pManager->airportsCount; i++)
+// 	{
+// 		printAirport(pManager->airportsArray[i]);
+// 		printf("\n");
+// 	}
+// }
 
 void	freeManager(AirportManager* pManager)
 {
@@ -93,12 +93,12 @@ void	freeManager(AirportManager* pManager)
 }
 
 
-/*void	freeAirportArr(AirportManager* pManager)
-{
-	for (int i = 0; i < pManager->airportsCount; i++)
-	{
-		freeAirport(pManager->airportsArray[i]);
-		free(pManager->airportsArray[i]);
-	}
-	free(pManager->airportsArray);
-}*/
+// void	freeAirportArr(AirportManager* pManager)
+// {
+// 	for (int i = 0; i < pManager->airportsCount; i++)
+// 	{
+// 		freeAirport(pManager->airportsArray[i]);
+// 		free(pManager->airportsArray[i]);
+// 	}
+// 	free(pManager->airportsArray);
+// }
