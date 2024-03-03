@@ -1,8 +1,13 @@
 #ifndef __COMP__
 #define __COMP__
 
+#include <string.h>
 #include "Flight.h"
 #include "AirportManager.h"
+
+typedef enum {
+	eNoSort, eSortBySrc, eSortByDst, eSortByDate, eNofSorts
+} eSortTypes;
 
 typedef struct
 {
@@ -21,6 +26,9 @@ void	printCompany(const Airline* pComp);
 void	printFlightArr(Flight** arr, int size);
 void	printPlanesArr(Plane* arr,int size);
 void	doPrintFlightsWithPlaneType(const Airline* pComp);
+int		compareBySrcCode(const Flight* pFlight1, const Flight* pFlight2);
+int		compareByDstCode(const Flight* pFlight1, const Flight* pFlight2);
+int		compareByDate(const Flight* pFlight1, const Flight* pFlight2);
 void	freeFlightArr(Flight** arr, int size);
 void	freePlanes(Plane* arr, int size);
 void	freeCompany(Airline* pComp);

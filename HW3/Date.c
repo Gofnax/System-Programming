@@ -49,3 +49,14 @@ void printDate(const Date* pDate)
 {
 	printf("Date: %d/%d/%d", pDate->day, pDate->month, pDate->year);
 }
+
+int	compareDates(const Date* pDate1, const Date* pDate2)
+{
+	if(pDate1->year != pDate2->year)
+		return pDate1->year - pDate2->year;
+	if(pDate1->month != pDate2->month)
+		return pDate1->month - pDate2->month;
+	if(pDate1->day != pDate2->day)
+		return pDate1->day - pDate2->day;
+	return 0;
+}

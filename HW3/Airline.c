@@ -121,6 +121,21 @@ void	doPrintFlightsWithPlaneType(const Airline* pComp)
 	printf("\n");
 }
 
+int	compareBySrcCode(const Flight* pFlight1, const Flight* pFlight2)
+{
+	return strcmp(pFlight1->sourceCode, pFlight2->sourceCode);
+}
+
+int	compareByDstCode(const Flight* pFlight1, const Flight* pFlight2)
+{
+	return strcmp(pFlight1->destCode, pFlight2->destCode);
+}
+
+int	compareByDate(const Flight* pFlight1, const Flight* pFlight2)
+{
+	return compareDates(&pFlight1->date, &pFlight2->date);
+}
+
 void	freeFlightArr(Flight** arr, int size)
 {
 	for (int i = 0; i < size; i++)
