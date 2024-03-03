@@ -15,6 +15,7 @@ int		initAirport(Airport* pPort, AirportManager* pManager);
 Airport* findAirportByCode(const AirportManager* pManager, const char* code);
 int		checkUniqeCode(const char* code, const AirportManager* pManager);
 void	printAirports(const AirportManager* pManager);
+int		getNumOfAirports(const AirportManager* pManager);
 void	freeManager(AirportManager* pManager);
-void	freeAirportArr(AirportManager* pManager);
+//void	freeAirportArr(AirportManager* pManager);
 #endif

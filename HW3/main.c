@@ -17,7 +17,7 @@ const char* str[eNofOptions] = { "Add Airport","Add Plane","Add Flight",
 #define EXIT			-1
 int menu();
 
-int main()
+/*int main()
 {
 	AirportManager	manager;
 	Airline			company;
@@ -76,7 +76,7 @@ int main()
 	freeCompany(&company);
 	
 	return 1;
-}
+}*/
 
 int menu()
 {

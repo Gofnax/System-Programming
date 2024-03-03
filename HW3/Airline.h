@@ -29,6 +29,7 @@ void	doPrintFlightsWithPlaneType(const Airline* pComp);
 int		compareBySrcCode(const Flight* pFlight1, const Flight* pFlight2);
 int		compareByDstCode(const Flight* pFlight1, const Flight* pFlight2);
 int		compareByDate(const Flight* pFlight1, const Flight* pFlight2);
+void	sortFlightsArr(Airline* pAirline, int (*compare)(const void*, const void*));
 void	freeFlightArr(Flight** arr, int size);
 void	freePlanes(Plane* arr, int size);
 void	freeCompany(Airline* pComp);

@@ -18,13 +18,7 @@ void	initAirline(Airline* pComp)
 
 int	addFlight(Airline* pComp, const AirportManager* pManager)
 {
-	int airportCount = 0;
-	NODE* tmp = &pManager->airportsList.head;
-	while(tmp->next != NULL)
-	{
-		airportCount++;
-		tmp = tmp->next;
-	}
+	int airportCount = getNumOfAirports(pManager);
 	if (airportCount < 2)
 	{
 		printf("There are not enough airport to set a flight\n");
@@ -42,7 +36,7 @@ int	addFlight(Airline* pComp, const AirportManager* pManager)
 	
 	Plane* thePlane = FindAPlane(pComp);
 	printAirports(pManager);
-	initFlight(pFlight, thePlane,pManager);
+	initFlight(pFlight, thePlane, pManager);
 
 	pComp->flightArr = (Flight**)realloc(pComp->flightArr, (pComp->flightCount + 1) * sizeof(Flight*));
 	if (!pComp->flightArr)
@@ -134,6 +128,13 @@ int	compareByDstCode(const Flight* pFlight1, const Flight* pFlight2)
 int	compareByDate(const Flight* pFlight1, const Flight* pFlight2)
 {
 	return compareDates(&pFlight1->date, &pFlight2->date);
+}
+
+void	sortFlightsArr(Airline* pAirline, int (*compare)(const void*, const void*))
+{
+	if(compare == NULL)
+		return;
+	qsort(pAirline->flightArr, pAirline->flightCount, sizeof(Flight*), compare);
 }
 
 void	freeFlightArr(Flight** arr, int size)
