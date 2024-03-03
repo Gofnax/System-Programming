@@ -16,9 +16,16 @@ void	initAirline(Airline* pComp)
 	pComp->planeCount = 0;
 }
 
-int	addFlight(Airline* pComp,const AirportManager* pManager)
+int	addFlight(Airline* pComp, const AirportManager* pManager)
 {
-	if (pManager->airportsCount < 2)
+	int airportCount = 0;
+	NODE* tmp = &pManager->airportsList.head;
+	while(tmp->next != NULL)
+	{
+		airportCount++;
+		tmp = tmp->next;
+	}
+	if (airportCount < 2)
 	{
 		printf("There are not enough airport to set a flight\n");
 		return 0;

@@ -8,11 +8,7 @@
 
 int	initManager(AirportManager* pManager)
 {
-	//pManager->airportsCount = 0;
-	//pManager->airportsArray = NULL;
-	L_init(&pManager->airportsList);
-
-	return 1;
+	return L_init(&pManager->airportsList);
 }
 
 int	addAirport(AirportManager* pManager)
@@ -29,7 +25,7 @@ int	addAirport(AirportManager* pManager)
 	}
 
 	NODE* tmp = &pManager->airportsList.head;
-	while(tmp->next != NULL && strcmp(pPort->code, ((Airport*)(tmp->key))->code) <= 0)
+	while(tmp->next != NULL && strcmp(pPort->code, ((Airport*)(tmp->next->key))->code) <= 0)
 	{
 		tmp = tmp->next;
 	}
