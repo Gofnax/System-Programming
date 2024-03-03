@@ -17,4 +17,14 @@ int main(void)
     addAirport(&manager);
 
     printAirports(&manager);
+
+    addPlane(&company);
+    addPlane(&company);
+    addPlane(&company);
+
+    addFlight(&company, &manager);
+    addFlight(&company, &manager);
+    addFlight(&company, &manager);
+
+    printFlightArr(company.flightArr, company.flightCount);
 }
