@@ -26,10 +26,10 @@ void freeStudentArr(Student* stArr, int count)
 
 int initStudent(Student* st)
 {
-	char temp[MAX_LEN];
+	char temp[255] = { 0 };
 	printf("Please enter student name, id and avg\n");
 	scanf("%s %d %f",temp, &st->id, &st->avg);
-	st->name = _strdup(temp);
+	st->name = strdup(temp);
 	if (!st->name)
 		return 0;
 	//st->name = (char*)malloc(sizeof(char)*(strlen(temp) + 1));

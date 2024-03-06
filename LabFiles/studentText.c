@@ -6,77 +6,102 @@
 
 void writeStudentToTextFile(FILE* fp, Student* st)
 {
-	fprintf("%s %d %f",st->name, &st->id, &st->avg);
+	fprintf(fp, "%s\t%d\t%.2f\n", st->name, st->id, st->avg);
+
 }
 
 int readStudentFromTextFile(FILE* fp, Student* st)
 {
-	char temp[MAX_LEN];
-	if(fscanf(fp, "%s %d %f", temp, &st->id, &st->avg))
+	char temp[255] = { 0 };
+	if(fscanf(fp,"%s %d %f", temp, &st->id, &st->avg)!=3)
 		return 0;
 	st->name = strdup(temp);
-	if(!st->name)
+	if (!st->name)
 		return 0;
-
-	return  1;
+	return 1;
 }
 
 int writeStudentArrToTextFile(const char* fileName, Student* stArr, int count)
 {
-	FILE* fp = fopen(fileName, "w");
-	if(!fp)
+	FILE* fp;
+	fp = fopen(fileName, "w");
+	if (!fp)
 		return 0;
 
 	fprintf(fp, "%d\n", count);
-	for(int i = 0; i < count; i++)
-	{
+	
+	for (int i = 0; i < count; i++)
 		writeStudentToTextFile(fp, &stArr[i]);
-	}
+	
 
 	fclose(fp);
-	return  1;
+	return 1;
 }
 
 
 Student* readStudentArrFromTextFile(const char* fileName, int* pCount)
 {
+	Student* arr = NULL;
 	FILE* fp = fopen(fileName, "r");
-	if(!fp)
+	if (!fp)
 		return NULL;
-	
-	if(fscanf(fp, "%d", pCount != 1))
+	if (fscanf(fp, "%d", pCount) != 1)
 	{
 		fclose(fp);
 		return NULL;
 	}
 
-	Student* arr = (Student*)malloc(*pCount * sizeof(Student));
-	if(!arr)
+	arr = (Student*)malloc(*pCount*sizeof(Student));
+	if (!arr)
 	{
 		fclose(fp);
 		return NULL;
 	}
-
-	for(int i = 0; i < *pCount; i++)
+	for (int i = 0; i < *pCount; i++)
 	{
-		if(!readStudentArrFromTextFile(fp, &arr[i]))
+		if (!readStudentFromTextFile(fp, &arr[i]))
 		{
-			freeStudentArr(arr, i);
+			freeStudentArr(arr,i);
 			fclose(fp);
 			return NULL;
 		}
-
 	}
 	fclose(fp);
 	return arr;
 }
 
+//init student from user
+//open file in read + write mode - binary
+//seek to start
+//read student count
+//seek to end
+//write student to file
+//seek to start
+//count++;
+//write new count
+//close file
 void addStudentToEndOfTextFile(const char* fileName)
 {
-	
+	int count;
+	FILE* fp;
+	Student st;
 
+	if (!initStudent(&st))
+		return;
 
+	fp = fopen(fileName, "r+");
+	if (!fp)
+		return;
+	fseek(fp, 0, SEEK_SET);
+	fscanf(fp, "%d", &count);
+	fseek(fp, 0, SEEK_END);
+	writeStudentToTextFile(fp, &st);
+	count++;
+	fseek(fp, 0, SEEK_SET);
+	fprintf(fp, "%d",count);
 
+	free(st.name);	//free the name in st. st do not need free - did not allocated
+	fclose(fp);
 }
 
 

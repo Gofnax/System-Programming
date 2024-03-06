@@ -20,5 +20,6 @@ int		isFlightToDestAirport(const Flight* pFlight, const char* code);
 void	printFlight(const Flight* pFlight);
 Airport*	setAiportToFlight(const AirportManager* pManager, const char* msg);
 int		isPlaneTypeInFlight(const Flight* pFlight, ePlaneType type);
+int 	saveFlightToBinaryFile(FILE* fp, Flight* pFlight);
 
 #endif

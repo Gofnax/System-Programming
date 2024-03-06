@@ -21,5 +21,6 @@ int				getPlaneSN(Plane* planeArr, int planeCount);
 Plane*			findPlaneBySN(Plane* planeArr, int count, int sn);
 int				isSerialNumUnique(Plane* planeArr, int planeCount, int num);
 void			printPlane(const Plane* pPlane);
+int 			savePlaneToBinaryFile(FILE* fp, Plane planeToSave);
 void			freePlane(Plane* pPlane);
 

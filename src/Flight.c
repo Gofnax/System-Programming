@@ -71,3 +71,25 @@ Airport* setAiportToFlight(const AirportManager* pManager, const char* msg)
 
 	return port;
 }
+
+int saveFlightToBinaryFile(FILE* fp, Flight* pFlight)
+{
+	if(pFlight == NULL || fp == NULL)
+		return 0;
+	int len = IATA_LENGTH;
+	if((int)fwrite(pFlight->sourceCode, sizeof(char), len, fp) != len)
+		return 0;
+	if((int)fwrite(pFlight->destCode, sizeof(char), len, fp) != len)
+		return 0;
+	int serialNum = pFlight->flightPlane.serialNum;
+	if(fwrite(&serialNum, sizeof(int), 1, fp) != 1)
+		return 0;
+	int day = pFlight->date.day, month = pFlight->date.month, year = pFlight->date.year;
+	if(fwrite(&day, sizeof(int), 1, fp) != 1)
+		return 0;
+	if(fwrite(&month, sizeof(int), 1, fp) != 1)
+		return 0;
+	if(fwrite(&year, sizeof(int), 1, fp) != 1)
+		return 0;
+	return 1;
+}

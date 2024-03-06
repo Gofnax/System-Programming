@@ -119,28 +119,21 @@ void	doPrintFlightsWithPlaneType(const Airline* pComp)
 	printf("\n");
 }
 
-int	compareBySrcCodeForQSort(const void* v1, const void* v2)
+int	compareBySrcCode(const void* v1, const void* v2)
 {
 	const Flight* pFlight1 = *(const Flight**)v1;
 	const Flight* pFlight2 = *(const Flight**)v2;
 	return strcmp(pFlight1->sourceCode, pFlight2->sourceCode);
 }
 
-int	compareByDstCodeForQSort(const void* v1, const void* v2)
+int	compareByDstCode(const void* v1, const void* v2)
 {
 	const Flight* pFlight1 = *(const Flight**)v1;
 	const Flight* pFlight2 = *(const Flight**)v2;
 	return strcmp(pFlight1->destCode, pFlight2->destCode);
 }
 
-int	compareByDstCodeForBSearch(const void* v1, const void* v2)
-{
-	const Flight* pFlight1 = *(const Flight**)v1;
-	const Flight* pFlight2 = *(const Flight**)v2;
-	return strcmp(pFlight1->destCode, pFlight2->destCode);
-}
-
-int	compareByDateForQSort(const void* v1, const void* v2)
+int	compareByDate(const void* v1, const void* v2)
 {
 	const Flight* pFlight1 = *(const Flight**)v1;
 	const Flight* pFlight2 = *(const Flight**)v2;
@@ -173,13 +166,13 @@ void chooseFlightSortMethod(Airline* pAirline)
 	switch(userChoice)
 	{
 		case 1:	//sortBySrc
-			sortFlightsArr(pAirline, compareBySrcCodeForQSort);
+			sortFlightsArr(pAirline, compareBySrcCode);
 			break;
 		case 2:	//sortByDst
-			sortFlightsArr(pAirline, compareByDstCodeForQSort);
+			sortFlightsArr(pAirline, compareByDstCode);
 			break;
 		case 3:	//sortByDate
-			sortFlightsArr(pAirline, compareByDateForQSort);
+			sortFlightsArr(pAirline, compareByDate);
 	}
 	pAirline->currentSort = (eSortTypes)userChoice;
 	printf("Done sorting\n");
@@ -192,18 +185,90 @@ Flight*	searchForFlight(Airline* pAirline, Flight* pFlight)
 	switch((int)pAirline->currentSort)
 	{
 		case 1:
-			return (Flight*)bsearch(pFlight, pAirline->flightArr, pAirline->flightCount,
-					sizeof(Flight*), compareBySrcCodeForQSort);
+			return *(Flight**)bsearch(&pFlight, pAirline->flightArr, pAirline->flightCount,
+					sizeof(Flight*), compareBySrcCode);
+			break;
 		case 2:
-			return (Flight*)bsearch(&pFlight, pAirline->flightArr, pAirline->flightCount,
-					sizeof(Flight*), compareByDstCodeForBSearch);
+			return *(Flight**)bsearch(&pFlight, pAirline->flightArr, pAirline->flightCount,
+					sizeof(Flight*), compareByDstCode);
+			break;
 		case 3:
-			return (Flight*)bsearch(pFlight, pAirline->flightArr, pAirline->flightCount,
-					sizeof(Flight*), compareByDateForQSort);
+			return *(Flight**)bsearch(&pFlight, pAirline->flightArr, pAirline->flightCount,
+					sizeof(Flight*), compareByDate);
+			break;
 		default:
 			printf("Unable to perform search for flight\n");
 	}
 	return NULL;
+}
+
+int saveAirlineToFile(const char* fileName, Airline* pAirline)
+{
+	FILE* fp = fopen(fileName, "wb");
+	if(!fp)
+		return 0;
+	int len = (int)strlen(pAirline->name) + 1;
+	if(fwrite(&len, sizeof(int), 1, fp) != 1)
+	{
+		fclose(fp);
+		return 0;
+	}
+	if((int)fwrite(pAirline->name, sizeof(char), len, fp) != len)
+	{
+		fclose(fp);
+		return 0;
+	}
+	if(fwrite(&pAirline->planeCount, sizeof(int), 1, fp) != 1)
+	{
+		fclose(fp);
+		return 0;
+	}
+	for(int i = 0; i < pAirline->planeCount; i++)
+	{
+		if(savePlaneToBinaryFile(fp, pAirline->planeArr[i]) == 0)
+		{
+			fclose(fp);
+			return 0;
+		}
+	}
+	if(fwrite(&pAirline->flightCount, sizeof(int), 1, fp) != 1)
+	{
+		fclose(fp);
+		return 0;
+	}
+	for(int i = 0; i < pAirline->planeCount; i++)
+	{
+		if(saveFlightToBinaryFile(fp, pAirline->flightArr[i]) == 0)
+		{
+			fclose(fp);
+			return 0;
+		}
+	}
+	fclose(fp);
+	return 1;
+}
+
+int initAirlineFromFile(Airline* pComp, AirportManager* pManager, const char* fileName)
+{
+	FILE* fp = fopen(fileName, "rb");
+	if (!fp)
+		return 0;
+	int len;
+	if(fread(&len, sizeof(int), 1, fp) != 1)
+		return 0;
+	pComp->name = (char*)malloc(len * sizeof(char));
+	if ((int)fread(pComp->name, sizeof(char), len, fp) != len)
+	{
+		free(pComp->name);
+		return 0;
+	}
+	if(fread(&pComp->planeCount, sizeof(int), 1, fp) != 1)
+	{
+		free(pComp->name);
+		return 0;
+	}
+	(void)pManager;
+	return 1;
 }
 
 void	freeFlightArr(Flight** arr, int size)

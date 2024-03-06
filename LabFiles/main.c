@@ -29,16 +29,14 @@ void TextToBin()
 	int count;
 
 	arr = readStudentArrFromTextFile(TEXT_FILE, &count);
-
 	if (!arr)
 	{
 		printf("Error in array\n");
 		return;
 	}
-
 	showStudentArr(arr, count);
 
-	if(!writeStudentArrToBFile(BIN_FILE, arr, count))
+	if (!writeStudentArrToBFile(BIN_FILE, arr, count))
 	{
 		printf("Error in write to bin file\n");
 		freeStudentArr(arr, count);
@@ -47,6 +45,7 @@ void TextToBin()
 //	addStudentToEndOfBFile(BIN_FILE);
 
 	freeStudentArr(arr, count);
+
 }
 
 void BinToText()
@@ -63,14 +62,12 @@ void BinToText()
 
 	showStudentArr(arr, count);
 
-	if(!writeStudentArrToTextFile(TEXT_FILE, arr, count))
+	if (!writeStudentArrToTextFile(TEXT_FILE, arr, count))
 	{
 		printf("Error in write to txt file\n");
 		freeStudentArr(arr, count);
 		return;
 	}
-
-
 //	addStudentToEndOfTextFile(TEXT_FILE);
 
 	freeStudentArr(arr, count);

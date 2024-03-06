@@ -77,9 +77,9 @@ int saveFlightToBinaryFile(FILE* fp, Flight* pFlight)
 	if(pFlight == NULL || fp == NULL)
 		return 0;
 	int len = IATA_LENGTH;
-	if(fwrite(pFlight->sourceCode, sizeof(char), len, fp) != len)
+	if((int)fwrite(pFlight->sourceCode, sizeof(char), len, fp) != len)
 		return 0;
-	if(fwrite(pFlight->destCode, sizeof(char), len, fp) != len)
+	if((int)fwrite(pFlight->destCode, sizeof(char), len, fp) != len)
 		return 0;
 	int serialNum = pFlight->flightPlane.serialNum;
 	if(fwrite(&serialNum, sizeof(int), 1, fp) != 1)
