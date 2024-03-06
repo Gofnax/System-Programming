@@ -16,6 +16,7 @@ typedef struct
 	Flight**	flightArr;
 	int			planeCount;
 	Plane*		planeArr;
+	eSortTypes	currentSort;
 }Airline;
 
 void	initAirline(Airline* pComp);
@@ -30,6 +31,7 @@ int		compareBySrcCode(const void* v1, const void* v2);
 int		compareByDstCode(const void* v1, const void* v2);
 int		compareByDate(const void* v1, const void* v2);
 void	sortFlightsArr(Airline* pAirline, int (*compare)(const void*, const void*));
+void 	chooseFlightSortMethod(Airline* pAirline);
 void	freeFlightArr(Flight** arr, int size);
 void	freePlanes(Plane* arr, int size);
 void	freeCompany(Airline* pComp);

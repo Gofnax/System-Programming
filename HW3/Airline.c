@@ -6,6 +6,9 @@
 #include "Airport.h"
 #include "General.h"
 
+static const char* SortTypeStr[eNofSorts]
+		= { "Not Sorted", "Sorted by Source Code", "Sorted by Destination Code", "Sorted by Date" };
+
 void	initAirline(Airline* pComp)
 {
 	//printf("-----------  Init Airline\n");
@@ -14,6 +17,7 @@ void	initAirline(Airline* pComp)
 	pComp->flightCount = 0;
 	pComp->planeArr = NULL;
 	pComp->planeCount = 0;
+	pComp->currentSort = eNoSort;
 }
 
 int	addFlight(Airline* pComp, const AirportManager* pManager)
@@ -81,7 +85,7 @@ void printCompany(const Airline* pComp)
 	printf("Airline %s\n", pComp->name);
 	printf("\n -------- Has %d planes\n", pComp->planeCount);
 	printPlanesArr(pComp->planeArr, pComp->planeCount);
-	printf("\n\n -------- Has %d flights\n", pComp->flightCount);
+	printf("\n\n -------- Has %d flights %s\n", pComp->flightCount, SortTypeStr[pComp->currentSort]);
 	printFlightArr(pComp->flightArr, pComp->flightCount);
 }
 
@@ -117,30 +121,61 @@ void	doPrintFlightsWithPlaneType(const Airline* pComp)
 
 int	compareBySrcCode(const void* v1, const void* v2)
 {
-	const Flight* pFlight1 = (const Flight*) v1;
-	const Flight* pFlight2 = (const Flight*) v2;
+	const Flight* pFlight1 = *(const Flight**)v1;
+	const Flight* pFlight2 = *(const Flight**)v2;
 	return strcmp(pFlight1->sourceCode, pFlight2->sourceCode);
 }
 
 int	compareByDstCode(const void* v1, const void* v2)
 {
-	const Flight* pFlight1 = (const Flight*) v1;
-	const Flight* pFlight2 = (const Flight*) v2;
+	const Flight* pFlight1 = *(const Flight**)v1;
+	const Flight* pFlight2 = *(const Flight**)v2;
 	return strcmp(pFlight1->destCode, pFlight2->destCode);
 }
 
 int	compareByDate(const void* v1, const void* v2)
 {
-	const Flight* pFlight1 = (const Flight*) v1;
-	const Flight* pFlight2 = (const Flight*) v2;
+	const Flight* pFlight1 = *(const Flight**)v1;
+	const Flight* pFlight2 = *(const Flight**)v2;
 	return compareDates(&pFlight1->date, &pFlight2->date);
 }
 
 void	sortFlightsArr(Airline* pAirline, int (*compare)(const void*, const void*))
 {
-	if(compare == NULL)
+	if(pAirline == NULL || compare == NULL)
 		return;
 	qsort(pAirline->flightArr, pAirline->flightCount, sizeof(Flight*), compare);
+}
+
+void chooseFlightSortMethod(Airline* pAirline)
+{
+	if(pAirline == NULL)
+		return;
+	
+	int userChoice;
+	do
+	{
+		printf("How do you want the flights to be sorted:\n");
+		for(int i = 1; i < eNofSorts; i++)
+		{
+			printf("(%d - %s) ", i, SortTypeStr[i]);
+		}
+		printf("\n");
+		scanf("%d", &userChoice);
+	} while (userChoice < 1 || userChoice >= eNofSorts);
+	switch(userChoice)
+	{
+		case 1:	//sortBySrc
+			sortFlightsArr(pAirline, compareBySrcCode);
+			break;
+		case 2:	//sortByDst
+			sortFlightsArr(pAirline, compareByDstCode);
+			break;
+		case 3:	//sortByDate
+			sortFlightsArr(pAirline, compareByDate);
+			break;
+	}
+	printf("Done sorting\n");
 }
 
 void	freeFlightArr(Flight** arr, int size)

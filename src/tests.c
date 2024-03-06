@@ -27,4 +27,7 @@ int main(void)
     addFlight(&company, &manager);
 
     printFlightArr(company.flightArr, company.flightCount);
+    printf("Comparing dst codes of flights 1 and 2: %d\n", compareByDstCode(company.flightArr[0], company.flightArr[1]));
+    chooseFlightSortMethod(&company);
+    printFlightArr(company.flightArr, company.flightCount);
 }

@@ -27,4 +27,6 @@ int main(void)
     addFlight(&company, &manager);
 
     printFlightArr(company.flightArr, company.flightCount);
+    chooseFlightSortMethod(&company);
+    printFlightArr(company.flightArr, company.flightCount);
 }
