@@ -119,21 +119,28 @@ void	doPrintFlightsWithPlaneType(const Airline* pComp)
 	printf("\n");
 }
 
-int	compareBySrcCode(const void* v1, const void* v2)
+int	compareBySrcCodeForQSort(const void* v1, const void* v2)
 {
 	const Flight* pFlight1 = *(const Flight**)v1;
 	const Flight* pFlight2 = *(const Flight**)v2;
 	return strcmp(pFlight1->sourceCode, pFlight2->sourceCode);
 }
 
-int	compareByDstCode(const void* v1, const void* v2)
+int	compareByDstCodeForQSort(const void* v1, const void* v2)
 {
 	const Flight* pFlight1 = *(const Flight**)v1;
 	const Flight* pFlight2 = *(const Flight**)v2;
 	return strcmp(pFlight1->destCode, pFlight2->destCode);
 }
 
-int	compareByDate(const void* v1, const void* v2)
+int	compareByDstCodeForBSearch(const void* v1, const void* v2)
+{
+	const Flight* pFlight1 = *(const Flight**)v1;
+	const Flight* pFlight2 = *(const Flight**)v2;
+	return strcmp(pFlight1->destCode, pFlight2->destCode);
+}
+
+int	compareByDateForQSort(const void* v1, const void* v2)
 {
 	const Flight* pFlight1 = *(const Flight**)v1;
 	const Flight* pFlight2 = *(const Flight**)v2;
@@ -166,16 +173,37 @@ void chooseFlightSortMethod(Airline* pAirline)
 	switch(userChoice)
 	{
 		case 1:	//sortBySrc
-			sortFlightsArr(pAirline, compareBySrcCode);
+			sortFlightsArr(pAirline, compareBySrcCodeForQSort);
 			break;
 		case 2:	//sortByDst
-			sortFlightsArr(pAirline, compareByDstCode);
+			sortFlightsArr(pAirline, compareByDstCodeForQSort);
 			break;
 		case 3:	//sortByDate
-			sortFlightsArr(pAirline, compareByDate);
-			break;
+			sortFlightsArr(pAirline, compareByDateForQSort);
 	}
+	pAirline->currentSort = (eSortTypes)userChoice;
 	printf("Done sorting\n");
+}
+
+Flight*	searchForFlight(Airline* pAirline, Flight* pFlight)
+{
+	if(pAirline == NULL || pFlight == NULL)
+		return NULL;
+	switch((int)pAirline->currentSort)
+	{
+		case 1:
+			return (Flight*)bsearch(pFlight, pAirline->flightArr, pAirline->flightCount,
+					sizeof(Flight*), compareBySrcCodeForQSort);
+		case 2:
+			return (Flight*)bsearch(&pFlight, pAirline->flightArr, pAirline->flightCount,
+					sizeof(Flight*), compareByDstCodeForBSearch);
+		case 3:
+			return (Flight*)bsearch(pFlight, pAirline->flightArr, pAirline->flightCount,
+					sizeof(Flight*), compareByDateForQSort);
+		default:
+			printf("Unable to perform search for flight\n");
+	}
+	return NULL;
 }
 
 void	freeFlightArr(Flight** arr, int size)
