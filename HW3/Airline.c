@@ -211,7 +211,7 @@ int saveAirlineToBinaryFile(const char* fileName, Airline* pAirline)
 	FILE* fp = fopen(fileName, "wb");
 	if(!fp)
 		return 0;
-	int len = strlen(pAirline->name) + 1;
+	int len = (int)strlen(pAirline->name) + 1;
 	if(fwrite(&len, sizeof(int), 1, fp) != 1)
 	{
 		fclose(fp);
@@ -222,13 +222,34 @@ int saveAirlineToBinaryFile(const char* fileName, Airline* pAirline)
 		fclose(fp);
 		return 0;
 	}
-	if(fwrite(pAirline->planeCount, sizeof(int), 1, fp) != 1)
+	if(fwrite(&pAirline->planeCount, sizeof(int), 1, fp) != 1)
 	{
 		fclose(fp);
 		return 0;
 	}
-	
-
+	for(int i = 0; i < pAirline->planeCount; i++)
+	{
+		if(savePlaneToBinaryFile(fp, pAirline->planeArr[i]) == 0)
+		{
+			fclose(fp);
+			return 0;
+		}
+	}
+	if(fwrite(&pAirline->flightCount, sizeof(int), 1, fp) != 1)
+	{
+		fclose(fp);
+		return 0;
+	}
+	for(int i = 0; i < pAirline->planeCount; i++)
+	{
+		if(saveFlightToBinaryFile(fp, pAirline->flightArr[i]) == 0)
+		{
+			fclose(fp);
+			return 0;
+		}
+	}
+	fclose(fp);
+	return 1;
 }
 
 void	freeFlightArr(Flight** arr, int size)

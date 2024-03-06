@@ -71,6 +71,17 @@ void	printPlane(const Plane* pPlane)
 
 }
 
+int savePlaneToBinaryFile(FILE* fp, Plane planeToSave)
+{
+	if(fp == NULL)
+		return 0;
+	if(fwrite(&planeToSave.serialNum, sizeof(int), 1, fp) != 1)
+		return 0;
+	if(fwrite(&planeToSave.type, sizeof(ePlaneType), 1, fp) != 1)
+		return 0;
+	return 1;
+}
+
 void			freePlane(Plane* pPlane) 
 { 
 	//nothing to free
