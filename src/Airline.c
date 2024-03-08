@@ -291,6 +291,7 @@ int initAirlineFromFile(Airline* pComp, AirportManager* pManager, const char* fi
 		return 0;
 	for(int i = 0; i < pComp->flightCount; i++)
 	{
+		pComp->flightArr[i] = (Flight*)calloc(1, sizeof(Flight));
 		if(initFlightFromFile(fp, pComp->flightArr[i], pComp->planeArr, pComp->planeCount) == 0)
 		{
 			free(pComp->name);
@@ -299,8 +300,12 @@ int initAirlineFromFile(Airline* pComp, AirportManager* pManager, const char* fi
 			free(pComp->flightArr);
 			return 0;
 		}
+		Flight* tmpPFlight = pComp->flightArr[i];
+		Airport* srcAirport = findAirportByCode(pManager, tmpPFlight->sourceCode);
+		Airport* dstAirport = findAirportByCode(pManager, tmpPFlight->destCode);
+		if(srcAirport == NULL || dstAirport == NULL)
+			return 0;
 	}
-	(void)pManager;
 	fclose(fp);
 	return 1;
 }

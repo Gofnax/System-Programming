@@ -77,11 +77,11 @@ int saveFlightToBinaryFile(FILE* fp, Flight* pFlight)
 	if(pFlight == NULL || fp == NULL)
 		return 0;
 	int len = IATA_LENGTH;
-	if((int)fwrite(&len, sizeof(int), 1, fp) != len)
+	if((int)fwrite(&len, sizeof(int), 1, fp) != 1)
 		return 0;
 	if((int)fwrite(pFlight->sourceCode, sizeof(char), len, fp) != len)
 		return 0;
-	if((int)fwrite(&len, sizeof(int), 1, fp) != len)
+	if((int)fwrite(&len, sizeof(int), 1, fp) != 1)
 		return 0;
 	if((int)fwrite(pFlight->destCode, sizeof(char), len, fp) != len)
 		return 0;
