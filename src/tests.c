@@ -29,15 +29,17 @@ int main(void)
     // addFlight(&company, &manager);
 
     printFlightArr(company.flightArr, company.flightCount);
-    chooseFlightSortMethod(&company);
+    sortFlight(&company);
     printFlightArr(company.flightArr, company.flightCount);
 
-    Flight* tmp = company.flightArr[2];
-    if(searchForFlight(&company, tmp))
-    {
-        printf("The search for following flight was successful:\n");
-        printFlight(searchForFlight(&company, tmp));
-    }
+    findFlight(&company);
+
+    // Flight* tmp = company.flightArr[2];
+    // if(searchForFlight(&company, tmp))
+    // {
+    //     printf("The search for following flight was successful:\n");
+    //     printFlight(searchForFlight(&company, tmp));
+    // }
 
     if(saveAirlineToFile(&company, AIRLINE_FILE_NAME))
         printf("Saved airline successfully\n");

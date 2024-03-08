@@ -148,9 +148,9 @@ void	sortFlightsArr(Airline* pAirline, int (*compare)(const void*, const void*))
 	qsort(pAirline->flightArr, pAirline->flightCount, sizeof(Flight*), compare);
 }
 
-void chooseFlightSortMethod(Airline* pAirline)
+void sortFlight(Airline* pComp)
 {
-	if(pAirline == NULL)
+	if(pComp == NULL)
 		return;
 	
 	int userChoice;
@@ -167,19 +167,19 @@ void chooseFlightSortMethod(Airline* pAirline)
 	switch(userChoice)
 	{
 		case 1:	//sortBySrc
-			sortFlightsArr(pAirline, compareBySrcCode);
+			sortFlightsArr(pComp, compareBySrcCode);
 			break;
 		case 2:	//sortByDst
-			sortFlightsArr(pAirline, compareByDstCode);
+			sortFlightsArr(pComp, compareByDstCode);
 			break;
 		case 3:	//sortByDate
-			sortFlightsArr(pAirline, compareByDate);
+			sortFlightsArr(pComp, compareByDate);
 	}
-	pAirline->currentSort = (eSortTypes)userChoice;
+	pComp->currentSort = (eSortTypes)userChoice;
 	printf("Done sorting\n");
 }
 
-Flight*	searchForFlight(Airline* pAirline, Flight* pFlight)
+Flight*	searchForFlight(const Airline* pAirline, Flight* pFlight)
 {
 	if(pAirline == NULL || pFlight == NULL)
 		return NULL;
@@ -198,9 +198,53 @@ Flight*	searchForFlight(Airline* pAirline, Flight* pFlight)
 					sizeof(Flight*), compareByDate);
 			break;
 		default:
-			printf("Unable to perform search for flight\n");
+			printf("The search cannot be perdormed, array not sorted 3\n");
 	}
 	return NULL;
+}
+
+void findFlight(const Airline* pComp)
+{
+	if(pComp == NULL)
+		return;
+	if(pComp->currentSort <= 0 || pComp->currentSort >= eNofSorts)
+	{
+		printf("The search cannot be perdormed, array not sorted\n");
+	}
+	else
+	{
+		Flight* res;
+		Flight tmpFlight = {.sourceCode = "TMP", .destCode = "TMP", .flightPlane = {-1, -1}, .date = {-1, -1, -1}};
+		switch((int)pComp->currentSort)
+		{
+			case 1:
+				printf("Destination: ");
+				getAirportCode(tmpFlight.sourceCode);
+				res = searchForFlight(pComp, &tmpFlight);
+				break;
+			case 2:
+				printf("Destination: ");
+				getAirportCode(tmpFlight.destCode);
+				res = searchForFlight(pComp, &tmpFlight);
+				break;
+			case 3:
+				printf("Date: ");
+				getCorrectDate(&tmpFlight.date);
+				res = searchForFlight(pComp, &tmpFlight);
+				break;
+			default:
+				printf("The search cannot be perdormed, array not sorted 2\n");
+		}
+		if(res == NULL)
+		{
+			printf("Flight not found\n");
+		}
+		else
+		{
+			printf("Flight found:\n");
+			printFlight(res);
+		}
+	}
 }
 
 int saveAirlineToFile(const Airline* pComp, const char* fileName)
