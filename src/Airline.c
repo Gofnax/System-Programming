@@ -53,13 +53,14 @@ int	addFlight(Airline* pComp, const AirportManager* pManager)
 	return 1;
 }
 
-int		addPlane(Airline* pComp)
+int addPlane(Airline* pComp)
 {
 	pComp->planeArr = (Plane*)realloc(pComp->planeArr, (pComp->planeCount + 1) * sizeof(Plane));
 	if (!pComp->planeArr)
 		return 0;
 	initPlane(&pComp->planeArr[pComp->planeCount], pComp->planeArr, pComp->planeCount);
 	pComp->planeCount++;
+	pComp->currentSort = eNoSort;
 	return 1;
 }
 
@@ -202,43 +203,43 @@ Flight*	searchForFlight(Airline* pAirline, Flight* pFlight)
 	return NULL;
 }
 
-int saveAirlineToFile(const char* fileName, Airline* pAirline)
+int saveAirlineToFile(const Airline* pComp, const char* fileName)
 {
 	FILE* fp = fopen(fileName, "wb");
 	if(!fp)
 		return 0;
-	int len = (int)strlen(pAirline->name) + 1;
+	int len = (int)strlen(pComp->name) + 1;
 	if(fwrite(&len, sizeof(int), 1, fp) != 1)
 	{
 		fclose(fp);
 		return 0;
 	}
-	if((int)fwrite(pAirline->name, sizeof(char), len, fp) != len)
+	if((int)fwrite(pComp->name, sizeof(char), len, fp) != len)
 	{
 		fclose(fp);
 		return 0;
 	}
-	if(fwrite(&pAirline->planeCount, sizeof(int), 1, fp) != 1)
+	if(fwrite(&pComp->planeCount, sizeof(int), 1, fp) != 1)
 	{
 		fclose(fp);
 		return 0;
 	}
-	for(int i = 0; i < pAirline->planeCount; i++)
+	for(int i = 0; i < pComp->planeCount; i++)
 	{
-		if(savePlaneToBinaryFile(fp, pAirline->planeArr[i]) == 0)
+		if(savePlaneToBinaryFile(fp, pComp->planeArr[i]) == 0)
 		{
 			fclose(fp);
 			return 0;
 		}
 	}
-	if(fwrite(&pAirline->flightCount, sizeof(int), 1, fp) != 1)
+	if(fwrite(&pComp->flightCount, sizeof(int), 1, fp) != 1)
 	{
 		fclose(fp);
 		return 0;
 	}
-	for(int i = 0; i < pAirline->planeCount; i++)
+	for(int i = 0; i < pComp->planeCount; i++)
 	{
-		if(saveFlightToBinaryFile(fp, pAirline->flightArr[i]) == 0)
+		if(saveFlightToBinaryFile(fp, pComp->flightArr[i]) == 0)
 		{
 			fclose(fp);
 			return 0;
@@ -251,10 +252,10 @@ int saveAirlineToFile(const char* fileName, Airline* pAirline)
 int initAirlineFromFile(Airline* pComp, AirportManager* pManager, const char* fileName)
 {
 	FILE* fp = fopen(fileName, "rb");
-	if (!fp)
+	if (fp == NULL)
 		return 0;
-	int len;
-	if(fread(&len, sizeof(int), 1, fp) != 1)
+	int len = 0;
+	if((int)fread(&len, sizeof(int), 1, fp) != 1)
 		return 0;
 	pComp->name = (char*)malloc(len * sizeof(char));
 	if ((int)fread(pComp->name, sizeof(char), len, fp) != len)
@@ -262,12 +263,45 @@ int initAirlineFromFile(Airline* pComp, AirportManager* pManager, const char* fi
 		free(pComp->name);
 		return 0;
 	}
-	if(fread(&pComp->planeCount, sizeof(int), 1, fp) != 1)
+	if((int)fread(&pComp->planeCount, sizeof(int), 1, fp) != 1)
 	{
 		free(pComp->name);
 		return 0;
 	}
+	pComp->planeArr = (Plane*)malloc(pComp->planeCount * sizeof(Plane));
+	if(pComp->planeArr == NULL)
+		return 0;
+	for(int i = 0; i < pComp->planeCount; i++)
+	{
+		if(initPlaneFromFile(fp, &pComp->planeArr[i]) == 0)
+		{
+			free(pComp->name);
+			free(pComp->planeArr);
+			return 0;
+		}
+	}
+	if((int)fread(&pComp->flightCount, sizeof(int), 1, fp) != 1)
+	{
+		free(pComp->name);
+		free(pComp->planeArr);
+		return 0;
+	}
+	pComp->flightArr = (Flight**)malloc(pComp->flightCount * sizeof(Flight*));
+	if(pComp->flightArr == NULL)
+		return 0;
+	for(int i = 0; i < pComp->flightCount; i++)
+	{
+		if(initFlightFromFile(fp, pComp->flightArr[i], pComp->planeArr, pComp->planeCount) == 0)
+		{
+			free(pComp->name);
+			free(pComp->planeArr);
+			freeFlightArr(pComp->flightArr, i);
+			free(pComp->flightArr);
+			return 0;
+		}
+	}
 	(void)pManager;
+	fclose(fp);
 	return 1;
 }
 

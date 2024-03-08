@@ -35,6 +35,12 @@ int main(void)
     {
         printFlight(searchForFlight(&company, tmp));
     }
+
+    if(saveAirlineToFile(&company, AIRLINE_FILE_NAME))
+        printf("Saved airline successfully\n");
+
+    freeCompany(&company);
+    freeManager(&manager);
     
 
     // Flight pFlight1 = {"AAA", "BBB", {1, 1}, {11, 11, 2111}};

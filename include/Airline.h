@@ -35,7 +35,7 @@ int		compareByDate(const void* v1, const void* v2);
 void	sortFlightsArr(Airline* pAirline, int (*compare)(const void*, const void*));
 void 	chooseFlightSortMethod(Airline* pAirline);
 Flight*	searchForFlight(Airline* pAirline, Flight* pFlight);
-int		saveAirlineToFile(const char* fileName, Airline* pAirline);
+int 	saveAirlineToFile(const Airline* pComp, const char* fileName);
 int 	initAirlineFromFile(Airline* pComp, AirportManager* pManager, const char* fileName);
 void	freeFlightArr(Flight** arr, int size);
 void	freePlanes(Plane* arr, int size);

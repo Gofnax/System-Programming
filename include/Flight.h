@@ -21,5 +21,6 @@ void	printFlight(const Flight* pFlight);
 Airport*	setAiportToFlight(const AirportManager* pManager, const char* msg);
 int		isPlaneTypeInFlight(const Flight* pFlight, ePlaneType type);
 int 	saveFlightToBinaryFile(FILE* fp, Flight* pFlight);
+int 	initFlightFromFile(FILE* fp, Flight* pFlight, Plane* planeArr, int planeCount);
 
 #endif

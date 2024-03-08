@@ -77,7 +77,11 @@ int saveFlightToBinaryFile(FILE* fp, Flight* pFlight)
 	if(pFlight == NULL || fp == NULL)
 		return 0;
 	int len = IATA_LENGTH;
+	if((int)fwrite(&len, sizeof(int), 1, fp) != len)
+		return 0;
 	if((int)fwrite(pFlight->sourceCode, sizeof(char), len, fp) != len)
+		return 0;
+	if((int)fwrite(&len, sizeof(int), 1, fp) != len)
 		return 0;
 	if((int)fwrite(pFlight->destCode, sizeof(char), len, fp) != len)
 		return 0;
@@ -91,5 +95,41 @@ int saveFlightToBinaryFile(FILE* fp, Flight* pFlight)
 		return 0;
 	if(fwrite(&year, sizeof(int), 1, fp) != 1)
 		return 0;
+	return 1;
+}
+
+int initFlightFromFile(FILE* fp, Flight* pFlight, Plane* planeArr, int planeCount)
+{
+	if(fp == NULL || pFlight == NULL)
+		return 0;
+	int len;
+	if((int)fread(&len, sizeof(int), 1, fp) != 1)
+		return 0;
+	if((int)fread(pFlight->sourceCode, sizeof(char), len, fp) != IATA_LENGTH)
+		return 0;
+	pFlight->sourceCode[IATA_LENGTH] = '\0';
+	if((int)fread(&len, sizeof(int), 1, fp) != 1)
+		return 0;
+	if((int)fread(pFlight->destCode, sizeof(char), len, fp) != IATA_LENGTH)
+		return 0;
+	pFlight->destCode[IATA_LENGTH] = '\0';
+	int planeSN;
+	if((int)fread(&planeSN, sizeof(int), 1, fp) != 1)
+		return 0;
+	Plane* tmpPlane = findPlaneBySN(planeArr, planeCount, planeSN);
+	if(tmpPlane == NULL)
+		return 0;
+	pFlight->flightPlane.serialNum = tmpPlane->serialNum;
+	pFlight->flightPlane.type = tmpPlane->type;
+	int tmpDay, tmpMonth, tmpYear;
+	if((int)fread(&tmpDay, sizeof(int), 1, fp) != 1)
+		return 0;
+	if((int)fread(&tmpMonth, sizeof(int), 1, fp) != 1)
+		return 0;
+	if((int)fread(&tmpYear, sizeof(int), 1, fp) != 1)
+		return 0;
+	pFlight->date.day = tmpDay;
+	pFlight->date.month = tmpMonth;
+	pFlight->date.year = tmpYear;
 	return 1;
 }

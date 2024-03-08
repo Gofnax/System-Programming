@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdio.h>
+
 #define CODE_LENGTH 8
 #define MIN_SN 1
 #define MAX_SN 9999
@@ -22,5 +24,6 @@ Plane*			findPlaneBySN(Plane* planeArr, int count, int sn);
 int				isSerialNumUnique(Plane* planeArr, int planeCount, int num);
 void			printPlane(const Plane* pPlane);
 int 			savePlaneToBinaryFile(FILE* fp, Plane planeToSave);
+int 			initPlaneFromFile(FILE* fp, Plane* pPlane);
 void			freePlane(Plane* pPlane);
 
