@@ -106,7 +106,6 @@ int	getNumOfAirports(const AirportManager* pManager)
 
 int		saveManagerToFile(const AirportManager* pManager,const char* fileName)
 {
-	//char* fileName = "airport_authority.txt";
 	int numOfAirports = getNumOfAirports(pManager);
 	FILE* fp = fopen(fileName, "w");
 	if (fp == NULL)
@@ -143,9 +142,8 @@ int initManager(AirportManager* pManager, const char* fileName)
 		return 0; 
 	}
 	int numOfAirports = 0;
-	if (fscanf(fp, "%d", &numOfAirports) != 1)
+	if (fscanf(fp, "%d\n", &numOfAirports) != 1)
 	{
-		//failed to get number of airports
 		fclose(fp);
 		if (initManagerFromUser(pManager) == 0)
 		{
@@ -153,7 +151,6 @@ int initManager(AirportManager* pManager, const char* fileName)
 		}
 		return 2;
 	}
-	L_init(&pManager->airportsList);
 	NODE* airportNode = &pManager->airportsList.head;
 	for (int i = 0; i < numOfAirports; i++)
 	{
@@ -172,9 +169,8 @@ int initManager(AirportManager* pManager, const char* fileName)
 			free(pAirport);
 			return 0;
 		}
-		L_insert(airportNode, pAirport);
-		airportNode = airportNode->next;
-		
+		airportNode = L_insert(airportNode, pAirport);
+		printf("if I print it works\n");
 	}
 	
 	fclose(fp);
@@ -188,21 +184,40 @@ int getAirportFromFile(Airport* pAirport, FILE* fp)
 		return 0;
 
 	char temp[MAX_STR_LEN] = { 0 };
-	if (fscanf(fp, "%s\n", temp) != 1)
+	//if (fscanf(fp, "%s\n", temp) != 1)
+	if(fgets(temp, MAX_STR_LEN, fp) == NULL)
 	{
 		return 0;
 	}
-	pAirport->name = strdup(temp);
-	if (fscanf(fp, "%s\n", temp) != 1)
+	int i = 0;
+	while(temp[i] != '\r' && temp[i] != '\n')
+		i++;
+	temp[i] = '\0';
+	int len = strlen(temp) + 1;
+	pAirport->name = (char*)malloc(len * sizeof(char));
+	(void)strcpy(pAirport->name, temp);
+	//if (fscanf(fp, "%s\n", temp) != 1)
+	if(fgets(temp, MAX_STR_LEN, fp) == NULL)
 	{
 		return 0;
 	}
-	pAirport->country = strdup(temp);
-	if (fscanf(fp, "%s\n", temp) != 1)
+	i = 0;
+	while(temp[i] != '\r' && temp[i] != '\n')
+		i++;
+	temp[i] = '\0';
+	len = strlen(temp) + 1;
+	pAirport->country = (char*)malloc(len * sizeof(char));
+	(void)strcpy(pAirport->country, temp);
+	//if (fscanf(fp, "%s\n", temp) != 1)
+	if(fgets(temp, MAX_STR_LEN, fp) == NULL)
 	{
 		return 0;
 	}
-	strncpy(pAirport->code, temp, IATA_LENGTH + 1);
+	i = 0;
+	while(temp[i] != '\r' && temp[i] != '\n')
+		i++;
+	temp[i] = '\0';
+	(void)strncpy(pAirport->code, temp, IATA_LENGTH + 1);
 
 	return 1;
 }

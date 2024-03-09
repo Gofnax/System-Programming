@@ -10,28 +10,30 @@ int main(void)
 	Airline			company;
 
 	initManager(&manager, AIRPORT_MANAGER_FILE_NAME);
-	initAirline(&company);
+	//initAirline(&company);
 
-    addAirport(&manager);
-    addAirport(&manager);
-    addAirport(&manager);
+    //addAirport(&manager);
+    //addAirport(&manager);
+    //addAirport(&manager);
 
-    //initAirlineFromFile(&company, &manager, AIRLINE_FILE_NAME);
+    initAirlineFromFile(&company, &manager, AIRLINE_FILE_NAME);
 
     printAirports(&manager);
 
-    addPlane(&company);
-    addPlane(&company);
-    addPlane(&company);
+    // addPlane(&company);
+    // addPlane(&company);
+    // addPlane(&company);
 
-    addFlight(&company, &manager);
-    addFlight(&company, &manager);
-    addFlight(&company, &manager);
+    // addFlight(&company, &manager);
+    // addFlight(&company, &manager);
+    // addFlight(&company, &manager);
 
-    printFlightArr(company.flightArr, company.flightCount);
+    //printFlightArr(company.flightArr, company.flightCount);
+    printCompany(&company);
     sortFlight(&company);
-    printFlightArr(company.flightArr, company.flightCount);
-
+    //printFlightArr(company.flightArr, company.flightCount);
+    printCompany(&company);
+    
     findFlight(&company);
 
     // Flight* tmp = company.flightArr[2];

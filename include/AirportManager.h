@@ -1,7 +1,6 @@
 #ifndef __AIR_MANAGER__
 #define __AIR_MANAGER__
 
-#include <string.h>
 #include "Airport.h"
 #include "list.h"
 
