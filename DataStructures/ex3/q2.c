@@ -1,4 +1,23 @@
-#include "q2.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+typedef char DATA;
+
+typedef struct node 
+{
+	char			value;
+	struct node*	next;
+}NODE;
+
+typedef struct 
+{
+	NODE anchor;
+}LIST;
+
+LIST* L_sort(LIST* pList);
+void L_init(LIST* pList);
+NODE* L_insert(NODE* pNode, char Value);
 
 LIST* L_sort(LIST* pList)
 {
@@ -54,7 +73,7 @@ void L_init(LIST* pList)
 	pList->anchor.next = NULL;
 }
 
-NODE* L_insert(NODE* pNode, DATA Value)
+NODE* L_insert(NODE* pNode, char Value)
 {
 	NODE* tmp;
 
@@ -70,4 +89,34 @@ NODE* L_insert(NODE* pNode, DATA Value)
 		pNode->next = tmp;
 	}
 	return tmp;
+}
+
+void L_print(LIST* pList)
+{
+	if(pList == NULL)
+		return;
+	NODE* tmp = pList->anchor.next;
+	while(tmp != NULL)
+	{
+		printf("%c ", tmp->value);
+	}
+	printf("\n");
+}
+
+int main(void)
+{
+	LIST l1;
+	L_init(&l1);
+	L_insert(&l1.anchor, '*');
+	L_insert(&l1.anchor, 'a');
+	L_insert(&l1.anchor, '*');
+	L_insert(&l1.anchor, 'c');
+	L_insert(&l1.anchor, 'b');
+	L_insert(&l1.anchor, 'a');
+	L_insert(&l1.anchor, '*');
+	L_insert(&l1.anchor, 'b');
+	L_insert(&l1.anchor, 'a');
+	L_print(&l1);
+	LIST* l2 = L_sort(&l1);
+	L_print(l2);
 }

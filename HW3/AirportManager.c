@@ -6,7 +6,7 @@
 #include "AirportManager.h"
 #include "General.h"
 
-int	initManager(AirportManager* pManager)
+int	initManagerFromUser(AirportManager* pManager)
 {
 	return L_init(&pManager->airportsList);
 }
@@ -102,6 +102,124 @@ int	getNumOfAirports(const AirportManager* pManager)
 		tmp = tmp->next;
 	}
 	return airportCount;
+}
+
+int		saveManagerToFile(const AirportManager* pManager,const char* fileName)
+{
+	int numOfAirports = getNumOfAirports(pManager);
+	FILE* fp = fopen(fileName, "w");
+	if (fp == NULL)
+	{
+		printf("failed opening the file\n");
+		return 0;
+	}
+	fprintf(fp, "%d\n", numOfAirports);
+
+	NODE* pAirportNode = pManager->airportsList.head.next;
+	while(pAirportNode != NULL)
+	{
+		Airport* pAirport = (Airport*)pAirportNode->key;
+		fprintf(fp, "%s\n", pAirport->name);
+		fprintf(fp, "%s\n", pAirport->country);
+		fprintf(fp, "%s\n", pAirport->code);
+		pAirportNode = pAirportNode->next;
+	}
+
+	fclose(fp);
+	return 1;
+}
+
+int initManager(AirportManager* pManager, const char* fileName)
+{
+	FILE* fp = fopen(fileName, "r");
+	if (fp == NULL) 
+	{
+		return 0;
+	}
+	if (initManagerFromUser(pManager) == 0) 
+	{
+		fclose(fp);
+		return 0; 
+	}
+	int numOfAirports = 0;
+	if (fscanf(fp, "%d\n", &numOfAirports) != 1)
+	{
+		fclose(fp);
+		if (initManagerFromUser(pManager) == 0)
+		{
+			return 0;
+		}
+		return 2;
+	}
+	NODE* airportNode = &pManager->airportsList.head;
+	for (int i = 0; i < numOfAirports; i++)
+	{
+		Airport* pAirport = (Airport*)calloc(1, sizeof(Airport));
+		if (pAirport == NULL)
+		{
+			printf("failed to allocate memory for airport");
+			fclose(fp);
+			return 0;
+		}
+		
+		if (getAirportFromFile(pAirport, fp) == 0)
+		{
+			printf("Error loading airport from file");
+			fclose(fp);
+			free(pAirport);
+			return 0;
+		}
+		airportNode = L_insert(airportNode, pAirport);
+		printf("if I print it works\n");
+	}
+	
+	fclose(fp);
+	return 1;
+
+}
+
+int getAirportFromFile(Airport* pAirport, FILE* fp)
+{
+	if (pAirport == NULL || fp == NULL)
+		return 0;
+
+	char temp[MAX_STR_LEN] = { 0 };
+	//if (fscanf(fp, "%s\n", temp) != 1)
+	if(fgets(temp, MAX_STR_LEN, fp) == NULL)
+	{
+		return 0;
+	}
+	int i = 0;
+	while(temp[i] != '\r' && temp[i] != '\n')
+		i++;
+	temp[i] = '\0';
+	int len = strlen(temp) + 1;
+	pAirport->name = (char*)malloc(len * sizeof(char));
+	(void)strcpy(pAirport->name, temp);
+	//if (fscanf(fp, "%s\n", temp) != 1)
+	if(fgets(temp, MAX_STR_LEN, fp) == NULL)
+	{
+		return 0;
+	}
+	i = 0;
+	while(temp[i] != '\r' && temp[i] != '\n')
+		i++;
+	temp[i] = '\0';
+	len = strlen(temp) + 1;
+	pAirport->country = (char*)malloc(len * sizeof(char));
+	(void)strcpy(pAirport->country, temp);
+	//if (fscanf(fp, "%s\n", temp) != 1)
+	if(fgets(temp, MAX_STR_LEN, fp) == NULL)
+	{
+		return 0;
+	}
+	i = 0;
+	while(temp[i] != '\r' && temp[i] != '\n')
+		i++;
+	temp[i] = '\0';
+	(void)strncpy(pAirport->code, temp, IATA_LENGTH + 1);
+
+	return 1;
 }
 
 void	freeManager(AirportManager* pManager)

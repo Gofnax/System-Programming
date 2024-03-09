@@ -9,32 +9,47 @@ int main(void)
     AirportManager	manager;
 	Airline			company;
 
-	initManager(&manager);
-	initAirline(&company);
+	initManager(&manager, AIRPORT_MANAGER_FILE_NAME);
+	//initAirline(&company);
 
-    addAirport(&manager);
-    addAirport(&manager);
-    addAirport(&manager);
+    //addAirport(&manager);
+    //addAirport(&manager);
+    //addAirport(&manager);
+
+    initAirlineFromFile(&company, &manager, AIRLINE_FILE_NAME);
 
     printAirports(&manager);
 
-    addPlane(&company);
-    addPlane(&company);
-    addPlane(&company);
+    // addPlane(&company);
+    // addPlane(&company);
+    // addPlane(&company);
 
-    addFlight(&company, &manager);
-    addFlight(&company, &manager);
-    addFlight(&company, &manager);
+    // addFlight(&company, &manager);
+    // addFlight(&company, &manager);
+    // addFlight(&company, &manager);
 
-    printFlightArr(company.flightArr, company.flightCount);
-    chooseFlightSortMethod(&company);
-    printFlightArr(company.flightArr, company.flightCount);
+    //printFlightArr(company.flightArr, company.flightCount);
+    printCompany(&company);
+    sortFlight(&company);
+    //printFlightArr(company.flightArr, company.flightCount);
+    printCompany(&company);
+    
+    findFlight(&company);
 
-    Flight* tmp = company.flightArr[2];
-    if(searchForFlight(&company, tmp))
-    {
-        printFlight(searchForFlight(&company, tmp));
-    }
+    // Flight* tmp = company.flightArr[2];
+    // if(searchForFlight(&company, tmp))
+    // {
+    //     printf("The search for following flight was successful:\n");
+    //     printFlight(searchForFlight(&company, tmp));
+    // }
+
+    if(saveAirlineToFile(&company, AIRLINE_FILE_NAME))
+        printf("Saved airline successfully\n");
+    else
+        printf("Save of airline failed\n");
+
+    freeCompany(&company);
+    freeManager(&manager);
     
 
     // Flight pFlight1 = {"AAA", "BBB", {1, 1}, {11, 11, 2111}};

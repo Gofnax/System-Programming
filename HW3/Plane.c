@@ -82,7 +82,20 @@ int savePlaneToBinaryFile(FILE* fp, Plane planeToSave)
 	return 1;
 }
 
-void			freePlane(Plane* pPlane) 
+int initPlaneFromFile(FILE* fp, Plane* pPlane)
+{
+	if(fp == NULL || pPlane == NULL)
+		return 0;
+	if((int)fread(&pPlane->serialNum, sizeof(int), 1, fp) != 1)
+		return 0;
+	if((int)fread(&pPlane->type, sizeof(ePlaneType), 1, fp) != 1)
+		return 0;
+	if(pPlane->type >= eNofPlaneTypes || pPlane->type < 0)
+		return 0;
+	return 1;
+}
+
+void freePlane(Plane* pPlane) 
 { 
 	//nothing to free
 	(void)pPlane;
