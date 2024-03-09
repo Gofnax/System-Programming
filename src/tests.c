@@ -9,24 +9,24 @@ int main(void)
     AirportManager	manager;
 	Airline			company;
 
-	initManager(&manager);
-	//initAirline(&company);
+	initManager(&manager, AIRPORT_MANAGER_FILE_NAME);
+	initAirline(&company);
 
     addAirport(&manager);
     addAirport(&manager);
     addAirport(&manager);
 
-    initAirlineFromFile(&company, &manager, AIRLINE_FILE_NAME);
+    //initAirlineFromFile(&company, &manager, AIRLINE_FILE_NAME);
 
     printAirports(&manager);
 
-    // addPlane(&company);
-    // addPlane(&company);
-    // addPlane(&company);
+    addPlane(&company);
+    addPlane(&company);
+    addPlane(&company);
 
-    // addFlight(&company, &manager);
-    // addFlight(&company, &manager);
-    // addFlight(&company, &manager);
+    addFlight(&company, &manager);
+    addFlight(&company, &manager);
+    addFlight(&company, &manager);
 
     printFlightArr(company.flightArr, company.flightCount);
     sortFlight(&company);
