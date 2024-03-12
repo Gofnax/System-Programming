@@ -59,25 +59,24 @@ int* createArrFromTextFile(const char* fileName, int* pCount)
 	if (!fp)
 		return NULL;
 	if (fscanf(fp, "%d", pCount) != 1)
-	{
-		fclose(fp);
-		return NULL;
-	}
+	CLOSE_RETURN_NULL(fp);
 
 	arr = (int*)malloc(*pCount * sizeof(int));
-	if (!arr)
-	{
-		fclose(fp);
-		return NULL;
-	}
+	CHECK_CLOSE_RETURN_NULL(pCount, fp);
+	// if (!arr)
+	// {
+	// 	fclose(fp);
+	// 	return NULL;
+	// }
 	for (int i = 0; i < *pCount; i++)
 	{
 		if (fscanf(fp, "%d", &arr[i]) != 1)
-		{
-			free(arr);
-			fclose(fp);
-			return NULL;
-		}
+		FREE_CLOSE_RETURN_NULL(arr,fp);
+		// {
+		// 	free(arr);
+		// 	fclose(fp);
+		// 	return NULL;
+		// }
 	}
 	fclose(fp);
 	return arr;

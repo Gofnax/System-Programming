@@ -39,7 +39,7 @@ void printToScreen(const Date* pDate)
 
 void createMsgByCondition(const Date* pDate, char* msg)
 {
-
+	PRINT_DATE(pDate, msg);
 
 
 

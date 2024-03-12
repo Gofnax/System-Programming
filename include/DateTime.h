@@ -33,6 +33,25 @@ void createTimeMsg(const Time* pTime, char* msg);
 #define ENGLISH
 //#define FRENCH
 
+//#define MSG_MAX
+#define MSG_REG
+
+#ifdef MSG_REG
+	#define PRINT_DATE(pDate,msg) createRegMsg(pDate,msg)
+#elif defined MSG_MAX
+	#define PRINT_DATE(pDate,msg) createMaxMsg(pDate,msg)
+#else
+	#define PRINT_DATE(pDate,msg) createMsg(pDate,msg)
+#endif
+
+#ifdef ENGLISH
+	#define FILE_NAME "english.txt"
+#elif defined(FRENCH)
+	#define FILE_NAME "french.txt"
+#else
+	#define FILE_NAME "otherLang.txt"
+#endif
+
 
 //#define MSG_MAX
 #define MSG_REG

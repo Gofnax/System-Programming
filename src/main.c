@@ -6,12 +6,16 @@
 
 int main(int argc, char* argv[])
 {
-	(void)argc;
-	(void)argv;
-	//change to be a main param!!!
-	printf("Enter option\n");
 	int opt;
-	scanf("%d",&opt);
+	if(argc == 2)
+	{
+		int res = sscanf(argv[1], "%d", &opt);
+	}
+	else
+	{
+		printf("Enter option\n");
+		scanf("%d",&opt);
+	}
 	
 	switch(opt)
 	{
