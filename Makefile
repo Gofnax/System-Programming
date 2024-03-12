@@ -8,7 +8,7 @@ SRCS := $(shell find $(SRC_DIR) -type f -name '*.c')
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 CC := gcc
-CFLAGS := -g -std=c99 -Wall -Wextra -Werror
+CFLAGS := -g -std=c99 -Wall -Wextra -Werror -Wno-unused
 CPPFLAGS := -I$(INCLUDE_DIR) -MMD -MP
 LDLIBS := -lm
 
